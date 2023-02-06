@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OranGo</string>
+    <string name="orango"><font size="45"><b>Oran<font color='#FCC300'>Go</font></b></font>\n<font size="23">Save Time! Skip The Line!</font></string>
 </resources>
