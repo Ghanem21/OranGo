@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_16sdp"
-    tools:context=".OnBoardingFragment">
+    tools:context=".ui.onBoarding.OnBoardingFragment">
 
     <Button
         android:id="@+id/skip"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/skip"
@@ -50,9 +50,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nextButton" />
 
-    <include
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/onBoardingFragments"
-        layout="@layout/on_boarding_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/_16sdp"
@@ -61,4 +60,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/skip" />
 
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:ci_drawable="@drawable/selected_dot"
+        app:ci_drawable_unselected="@drawable/unselected_dot"
+        app:ci_width="@dimen/_10sdp"
+        app:ci_height="@dimen/_10sdp"
+        app:ci_margin="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+        app:layout_constraintEnd_toStartOf="@+id/nextButton"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@id/nextButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

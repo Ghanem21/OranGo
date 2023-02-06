@@ -3,4 +3,17 @@
     <string name="skip">Skip</string>
     <string name="next">next</string>
     <string name="back">back</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_more_long_queues">No more long queues</string>
+    <string name="you_can_now_skip_long_queues_at_stores_while_shopping">You can now skip long queues at stores while shopping</string>
+
+    <string name="scan_title">Scan products</string>
+    <string name="scan_body">Use the camera to scan products by photo recognition</string>
+
+    <string name="credit_title">Easy Payment</string>
+    <string name="credit_body">Choose the convenient payment method for you</string>
+
+    <string name="email_title">Receipt via email</string>
+    <string name="email_body">You\'ll receive a confirmation email with order details</string>
 </resources>
