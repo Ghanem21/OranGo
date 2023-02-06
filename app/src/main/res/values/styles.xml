@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="OnBoardingImageButton">
+        <item name="android:backgroundTint">@color/primaryColor</item>
+        <item name="android:padding">@dimen/_8sdp</item>
+        <item name="android:background">@drawable/rounded_corner</item>
+    </style>
+
+    <style name="TitleTextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/_27ssp</item>
+    </style>
+
+    <style name="TextStyle">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+</resources>
