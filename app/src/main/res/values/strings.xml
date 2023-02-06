@@ -16,4 +16,5 @@
 
     <string name="email_title">Receipt via email</string>
     <string name="email_body">You\'ll receive a confirmation email with order details</string>
+    <string name="orango"><font size="45"><b>Oran<font color='#FCC300'>Go</font></b></font>\n<font size="23">Save Time! Skip The Line!</font></string>
 </resources>
