@@ -1,19 +1,14 @@
 package com.example.orango.ui.onBoarding
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.orango.MainActivity
-import com.example.orango.R
 import com.example.orango.data.onBoarding.OnBoardingDataManager
 import com.example.orango.databinding.FragmentOnBoardingBinding
-import com.example.orango.util.BODY
-import com.example.orango.util.IMAGE_ID
-import com.example.orango.util.TITLE
+import com.example.orango.util.*
 
 class OnBoardingFragment : Fragment() {
 
