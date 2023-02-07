@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="@dimen/_275sdp"
-        android:layout_height="@dimen/_275sdp"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_250sdp"
         app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/you_can_now_skip_long_queues_at_stores_while_shopping"
-        android:textSize="@dimen/_21sdp"
+        android:textSize="@dimen/_16sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintHorizontal_bias="0.0"

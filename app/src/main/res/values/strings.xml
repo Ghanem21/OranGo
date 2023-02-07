@@ -3,8 +3,7 @@
     <string name="skip">Skip</string>
     <string name="next">next</string>
     <string name="back">back</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="no_more_long_queues">No more long queues</string>
     <string name="you_can_now_skip_long_queues_at_stores_while_shopping">You can now skip long queues at stores while shopping</string>
 
