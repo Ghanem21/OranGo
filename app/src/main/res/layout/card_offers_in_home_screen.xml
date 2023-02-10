@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_120sdp"
+    app:cardCornerRadius="@dimen/_20sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/corner"
+        >
+
+        <TextView
+            android:id="@+id/percentage"
+            style="@style/TitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="25%"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="off"
+            android:textSize="@dimen/_18sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/percentage"
+            app:layout_constraintStart_toEndOf="@+id/percentage" />
+
+        <TextView
+            android:id="@+id/product_name_offer_card"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Organic Tomato"
+            android:textSize="@dimen/_18sdp"
+            app:layout_constraintStart_toStartOf="@+id/percentage"
+            app:layout_constraintTop_toBottomOf="@+id/percentage" />
+
+        <TextView
+            android:id="@+id/price_before_dicount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/_300"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/_18sdp"
+            app:layout_constraintStart_toStartOf="@+id/product_name_offer_card"
+            app:layout_constraintTop_toBottomOf="@+id/product_name_offer_card" />
+
+        <TextView
+            android:id="@+id/price_after_dicount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="200$"
+            android:textSize="@dimen/_18sdp"
+            app:layout_constraintStart_toEndOf="@+id/price_before_dicount"
+            app:layout_constraintTop_toTopOf="@+id/price_before_dicount" />
+
+        <ImageView
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:src="@drawable/circle_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/product_img_in_offer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tomato"
+            app:layout_constraintBottom_toBottomOf="@+id/price_after_dicount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/product_name_offer_card"
+            app:layout_constraintTop_toTopOf="@+id/percentage" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
