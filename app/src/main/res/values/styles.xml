@@ -9,12 +9,21 @@
 
     <style name="TitleTextView">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/_26sdp</item>
+        <item name="android:textSize">@dimen/_26ssp</item>
     </style>
 
     <style name="TextStyle">
         <item name="android:textColor">@color/gray</item>
         <item name="android:fontFamily">@font/product_sans_regular</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/_16sdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_16sdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_16sdp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/_16sdp</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
     </style>
 
 </resources>

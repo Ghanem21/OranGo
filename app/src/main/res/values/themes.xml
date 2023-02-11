@@ -10,8 +10,9 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/yellowLight</item>
+        <item name="android:windowFullscreen">true</item>
         <!-- Customize your theme here. -->
         <item name="android:textViewStyle">@style/TextStyle</item>
+        <item name="textInputStyle">@style/TextInputLayout</item>
     </style>
 </resources>

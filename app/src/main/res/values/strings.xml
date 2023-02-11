@@ -16,4 +16,21 @@
     <string name="email_title">Receipt via email</string>
     <string name="email_body">You\'ll receive a confirmation email with order details</string>
     <string name="orango"><font size="45"><b>Oran<font color='#FCC300'>Go</font></b></font>\n<font size="23">Save Time! Skip The Line!</font></string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login">LogIn</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up_with_Style">Sign <font color='#FDC400'>Up</font></string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
