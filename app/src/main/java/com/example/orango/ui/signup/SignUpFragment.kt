@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.orango.R
 import com.example.orango.databinding.FragmentSignUpBinding
 
@@ -27,7 +28,7 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.logInButton.setOnClickListener {
-
+            findNavController().navigate(R.id.action_signUpFragment_to_logInFragment)
         }
     }
 

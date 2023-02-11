@@ -28,6 +28,7 @@
     <string name="login">LogIn</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="sign_up_with_Style">Sign <font color='#FDC400'>Up</font></string>
+    <string name="log_in_with_Style">Log <font color='#FDC400'>In</font></string>
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="phone">Phone</string>
@@ -40,4 +41,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="_300"><strike>300$</strike></string>
+    <string name="or">Or</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="forget_password"><u>Forget Password?</u></string>
 </resources>

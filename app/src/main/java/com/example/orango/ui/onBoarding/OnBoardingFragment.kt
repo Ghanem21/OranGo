@@ -85,7 +85,7 @@ class OnBoardingFragment : Fragment() {
         when (it) {
             0 -> binding.backButton.visibility = View.INVISIBLE
             4 -> {
-                findNavController().navigate(R.id.action_onBoardingFragment_to_signUpFragment)
+                findNavController().navigate(R.id.action_onBoardingFragment_to_logInFragment)
                 viewModel.setCurrentPosition(binding.onBoardingFragments.currentItem)
             }
             else -> binding.backButton.visibility = View.VISIBLE
