@@ -102,11 +102,11 @@ class OnBoardingFragment : Fragment() {
     }
 
     override fun onPause() {
-        super.onPause()
         binding.onBoardingFragments.adapter = null
+        super.onPause()
     }
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 }

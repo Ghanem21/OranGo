@@ -14,5 +14,6 @@
         <!-- Customize your theme here. -->
         <item name="android:textViewStyle">@style/TextStyle</item>
         <item name="textInputStyle">@style/TextInputLayout</item>
+        <item name="materialButtonStyle">@style/buttonStyle</item>
     </style>
 </resources>
