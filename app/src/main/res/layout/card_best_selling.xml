@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_160sdp"
-    android:layout_height="@dimen/_220sdp"
-    app:cardCornerRadius="@dimen/_20sdp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="@dimen/_4sdp"
+    android:clipToPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/corner">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/circle_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/yellow_top_circle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/circle_top"
+            app:layout_constraintBottom_toBottomOf="@+id/product_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/product_img_in_bestselling"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginStart="32dp"
+            android:layout_width="@dimen/_95sdp"
+            android:layout_height="@dimen/_105sdp"
+            android:layout_marginHorizontal="@dimen/_18sdp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="33dp"
             android:src="@drawable/tomato"
+            app:layout_constraintBottom_toTopOf="@+id/product_name_in_bestselling"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,9 +40,12 @@
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Tomato"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toTopOf="@+id/product_price"
             app:layout_constraintEnd_toEndOf="@+id/product_img_in_bestselling"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/product_img_in_bestselling"
             app:layout_constraintTop_toBottomOf="@+id/product_img_in_bestselling" />
 
@@ -47,12 +54,37 @@
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="15$"
-            android:textSize="@dimen/_20sdp"
+            android:text="@string/product_price"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toTopOf="@+id/product_location"
             app:layout_constraintEnd_toEndOf="@+id/product_name_in_bestselling"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/product_name_in_bestselling"
             app:layout_constraintTop_toBottomOf="@+id/product_name_in_bestselling" />
+
+
+        <ImageView
+            android:id="@+id/location_img"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
+            android:src="@drawable/location"
+            app:layout_constraintBottom_toBottomOf="@+id/product_location"
+            app:layout_constraintEnd_toStartOf="@+id/product_location"
+            app:layout_constraintStart_toStartOf="@+id/product_price"
+            app:layout_constraintTop_toTopOf="@+id/product_location" />
+
+        <TextView
+            android:id="@+id/product_location"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Floor 2, Lane 4"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/product_price"
+            app:layout_constraintStart_toEndOf="@+id/location_img"
+            app:layout_constraintTop_toBottomOf="@+id/product_price" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
