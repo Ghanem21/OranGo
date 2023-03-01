@@ -1,4 +1,4 @@
-package com.example.orango.ui.fourMainFragments
+package com.example.orango.ui.setting
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,20 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.orango.R
 
-class RecommendedFragment : Fragment() {
-
+class SettingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_recommended, container, false)
-        setUpRecyclerView(view)
-        return view
-    }
-
-    private fun setUpRecyclerView(view: View?) {
-        val context = requireContext()
-
+        return inflater.inflate(R.layout.fragment_setting, container, false)
     }
 }

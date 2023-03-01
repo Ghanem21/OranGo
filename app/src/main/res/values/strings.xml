@@ -44,4 +44,14 @@
     <string name="or">Or</string>
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="forget_password"><u>Forget Password?</u></string>
+    <string name="we_have_send_an_otp_number_to_your_mobile_phone">We have send an <b>OTP number</b> \n to your mobile phone</string>
+    <string name="please_enter_the_otp_n_to_complete_the_registration">Please enter the OTP \n to complete the registration</string>
+    <string name="resend">Resend</string>
+    <string name="next_cap">Next</string>
+    <string name="asterik">*</string>
+    <string name="see_all">See All</string>
+    <string name="best_selling">Best Selling</string>
+    <string name="offers">Offers</string>
+    <string name="categories">Categories</string>
+    <string name="setting">Setting</string>
 </resources>

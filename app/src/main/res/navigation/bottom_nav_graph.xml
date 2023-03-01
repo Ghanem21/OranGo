@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.orango.ui.fourMainFragments.HomeFragment"
+        android:name="com.example.orango.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/recommendedFragment"
-        android:name="com.example.orango.ui.fourMainFragments.RecommendedFragment"
+        android:name="com.example.orango.ui.recommended.RecommendedFragment"
         android:label="fragment_recommended"
         tools:layout="@layout/fragment_recommended"/>
 
