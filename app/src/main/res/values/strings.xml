@@ -54,4 +54,8 @@
     <string name="offers">Offers</string>
     <string name="categories">Categories</string>
     <string name="setting">Setting</string>
+    <string name="product_price">%1$d LE</string>
+    <string name="product_weight"><b><font color='#FCC300'>Weight:</font></b> %1$d lb</string>
+    <string name="product_price_per_lb">%1$d LE per lb</string>
+    <string name="product_total_price">%1$d LE</string>
 </resources>
