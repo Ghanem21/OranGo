@@ -7,7 +7,7 @@
     android:padding="@dimen/_16sdp"
     tools:context=".ui.onBoarding.OnBoardingFragment">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/skip"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
@@ -15,7 +15,6 @@
         android:text="@string/skip"
         android:textColor="@color/light_gray"
         android:textSize="@dimen/_16ssp"
-        android:fontFamily="@font/product_sans_italic"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"

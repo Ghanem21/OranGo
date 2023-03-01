@@ -9,8 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.orango.R
-import com.example.orango.data.onBoarding.DataManager
+import com.example.orango.data.DataManager
 import com.example.orango.databinding.FragmentOnBoardingBinding
+import com.example.orango.util.ViewPager
 
 class OnBoardingFragment : Fragment() {
 
@@ -19,8 +20,8 @@ class OnBoardingFragment : Fragment() {
         ViewModelProvider(this)[OnBoardingViewModel::class.java]
     }
     private val onBoardingViewPager by lazy {
-        OnBoardingViewPager(
-            DataManager.fragmentList,
+        ViewPager(
+            DataManager.onBoardingFragmentList,
             childFragmentManager,
             viewLifecycleOwner.lifecycle
         )
@@ -102,11 +103,11 @@ class OnBoardingFragment : Fragment() {
     }
 
     override fun onPause() {
-        super.onPause()
         binding.onBoardingFragments.adapter = null
+        super.onPause()
     }
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 }
