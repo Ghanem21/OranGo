@@ -1,55 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_100sdp"
-    app:cardCornerRadius="@dimen/_20sdp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_20sdp"
+    app:cardElevation="@dimen/_4sdp"
+    android:clipToPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/corner"
-        >
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/circle_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/yellow_left_circle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/circle_left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/product_img_in_offer"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginStart="32dp"
-            android:src="@drawable/tomato"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/product_img"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:layout_marginStart="32dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/tomato"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/product_name"
-            style="@style/TextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:text="Organic Tomato"
-            android:textSize="@dimen/_18sdp"
-            app:layout_constraintStart_toEndOf="@+id/product_img_in_offer"
-            app:layout_constraintTop_toTopOf="@+id/product_img_in_offer" />
+    <TextView
+        android:id="@+id/product_name"
+        style="@style/TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Organic Tomato"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintBottom_toTopOf="@+id/price_after_dicount"
+        app:layout_constraintStart_toEndOf="@+id/product_img"
+        app:layout_constraintTop_toBottomOf="@+id/yellow_left_circle" />
 
-        <TextView
-            android:id="@+id/price_before_dicount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="100$"
-            android:textSize="@dimen/_18sdp"
-            app:layout_constraintStart_toStartOf="@+id/product_name"
-            app:layout_constraintTop_toBottomOf="@+id/product_name" />
+
+    <TextView
+        android:id="@+id/price_after_dicount"
+        style="@style/TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/product_price"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintBottom_toTopOf="@+id/location_img"
+        app:layout_constraintStart_toStartOf="@+id/product_name"
+        app:layout_constraintTop_toBottomOf="@+id/product_name" />
+
+    <TextView
+        android:id="@+id/price_before_dicount"
+        style="@style/TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/product_price_before_discount"
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/price_after_dicount"
+        app:layout_constraintEnd_toEndOf="@+id/product_name"
+        app:layout_constraintStart_toEndOf="@+id/price_after_dicount"
+        app:layout_constraintTop_toTopOf="@+id/price_after_dicount" />
+
+    <ImageView
+        android:id="@+id/location_img"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/location"
+        app:layout_constraintBottom_toTopOf="@+id/yellow_left_circle"
+        app:layout_constraintStart_toEndOf="@+id/product_img"
+        app:layout_constraintTop_toBottomOf="@+id/price_after_dicount" />
+
+    <TextView
+        android:id="@+id/product_location"
+        style="@style/TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Floor 2, Lane 4"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/location_img"
+        app:layout_constraintStart_toEndOf="@+id/location_img"
+        app:layout_constraintTop_toTopOf="@+id/location_img" />
+
+
+    <ImageView
+        android:id="@+id/favourite_icon"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/heart_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/price_before_dicount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/price_before_dicount"
+        app:layout_constraintTop_toTopOf="@+id/price_before_dicount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
