@@ -36,4 +36,34 @@
         <item name="android:textStyle">bold</item>
         <item name="android:paddingTop">@dimen/_25sdp</item>
     </style>
+
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <style name="MyCardView" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/_8sdp</item>
+        <item name="cornerSizeTopLeft">@dimen/_20sdp</item>
+        <item name="cornerSizeBottomRight">@dimen/_8sdp</item>
+        <item name="cornerSizeBottomLeft">@dimen/_20sdp</item>
+    </style>
+
+
+    <style name="customButton" parent="Widget.AppCompat.ImageButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/_8sdp</item>
+        <item name="cornerSizeTopLeft">@dimen/_20sdp</item>
+        <item name="cornerSizeBottomRight">@dimen/_8sdp</item>
+        <item name="cornerSizeBottomLeft">@dimen/_20sdp</item>
+    </style>
+
+
 </resources>
