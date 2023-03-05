@@ -58,4 +58,8 @@
     <string name="product_weight"><b><font color='#FCC300'>Weight:</font></b> %1$d lb</string>
     <string name="product_price_per_lb">%1$d LE per lb</string>
     <string name="product_total_price">%1$d LE</string>
+    <string name="notification">Notification</string>
+    <string name="your_notifications_about_offers_will_appear_here">Your notifications about offers will appear here.</string>
+    <string name="profile">Profile</string>
+    <string name="save_changes">Save Changes</string>
 </resources>
