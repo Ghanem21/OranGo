@@ -62,4 +62,5 @@
     <string name="your_notifications_about_offers_will_appear_here">Your notifications about offers will appear here.</string>
     <string name="profile">Profile</string>
     <string name="save_changes">Save Changes</string>
+    <string name="receipt_total_price">%1$d LE</string>
 </resources>
