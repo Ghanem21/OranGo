@@ -63,4 +63,10 @@
     <string name="profile">Profile</string>
     <string name="save_changes">Save Changes</string>
     <string name="receipt_total_price">%1$d LE</string>
+    <string name="abdelrhman_ghanem">Abdelrhman Ghanem</string>
+    <string name="android_developer">Android Developer</string>
+    <string name="about_us">About Us</string>
+    <string name="about_the_project">About the Project:</string>
+    <string name="with_the_help_of_app_you_can_make_purchases_without_queuing_with_special_features_to_make_shopping_experience_more_convenient_and_safe_without_contacting_a_signal_person">- With the help of "OranGo" app, you can make purchases without queuing with special features. - To make shopping experience more convenient and safe without contacting a signal person.</string>
+    <string name="our_team">Our Team:</string>
 </resources>
