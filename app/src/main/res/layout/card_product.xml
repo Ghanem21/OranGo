@@ -91,7 +91,7 @@
         style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Floor 2, Lane 4"
+        android:text="@string/floor_2_lane_4"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintBottom_toBottomOf="@+id/location_img"
         app:layout_constraintStart_toEndOf="@+id/location_img"
