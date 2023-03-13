@@ -84,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/cardNumberTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/cardNumberTextInputLayout"
-        app:startIconDrawable="@drawable/password_lock">
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/securityCodeEditText"
@@ -140,7 +140,9 @@
             android:id="@+id/yearEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/yy" />
+            android:hint="@string/yy"
+            android:maxLines="1"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -155,6 +157,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/monthEditText"
+            android:maxLines="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/mm" />

@@ -5,11 +5,13 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_4sdp"
-    android:clipToPadding="true">
+    android:clipToPadding="true"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+       >
 
         <ImageView
             android:id="@+id/yellow_top_circle"

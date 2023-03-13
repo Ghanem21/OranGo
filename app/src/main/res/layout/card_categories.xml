@@ -4,12 +4,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:clipToPadding="true"
-    android:outlineProvider="none">
+    android:outlineProvider="none"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp">
+        >
 
         <ImageView
             android:id="@+id/yellow_center_circle"
