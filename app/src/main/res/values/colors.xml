@@ -13,4 +13,6 @@
     <color name="yellow">#FDC400</color>
     <color name="primaryColor">@color/yellow</color>
     <color name="green">#4CAF50</color>
+    <color name="gray_background">#EEEBEB</color>
+
 </resources>

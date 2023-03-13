@@ -36,7 +36,7 @@ class SplashScreen : Fragment(){
             binding.qoute.text = savedInstanceState.getString("QOUTE")
             binding.qoute.setText(binding.qoute.text)
 
-         /*   binding.topLogo = savedInstanceState.getString("TOP LOGO")
+        /* binding.topLogo = savedInstanceState.getString("TOP LOGO")
             binding.topLogo.setText(binding.topLogo)
 
             binding.logo = savedInstanceState.getString("LOGO")
