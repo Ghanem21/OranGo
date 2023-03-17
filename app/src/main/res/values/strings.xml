@@ -65,7 +65,7 @@
     <string name="profile">Profile</string>
     <string name="save_changes">Save Changes</string>
     <string name="receipt_total_price">%1$d LE</string>
-    <string name="abdelrhman_ghanem">Abdelrhman Ghanem</string>
+    <string name="abdelrhman_ghanem">Abdulrahman Ragab</string>
     <string name="android_developer">Android Developer</string>
     <string name="about_us">About Us</string>
     <string name="about_the_project">About the Project:</string>
@@ -123,4 +123,5 @@
     <string name="favourites">Favourites</string>
     <string name="suggested_meals">Suggested Meals</string>
     <string name="back_to_home">Back to Home</string>
+    <string name="receipt_items">Receipt Items</string>
 </resources>

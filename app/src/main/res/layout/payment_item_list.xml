@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_4sdp"
+        app:cardCornerRadius="@dimen/_16sdp"
         app:cardElevation="@dimen/_4sdp"
         app:cardUseCompatPadding="true"
         app:contentPadding="@dimen/_16sdp">
@@ -23,6 +23,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/credit_card"
                 app:layout_constraintBottom_toTopOf="@+id/imageView21"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

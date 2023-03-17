@@ -10,7 +10,7 @@
         android:id="@+id/imageView16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-16dp"
+        android:layout_marginTop="-50dp"
         android:scaleType="centerCrop"
         android:src="@drawable/circle_top"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,8 +20,8 @@
 
     <ImageView
         android:id="@+id/imageView14"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_180sdp"
         android:src="@drawable/tomato"
         android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/textView25"

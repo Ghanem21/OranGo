@@ -62,4 +62,9 @@ dependencies {
     //coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
 
+
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+
+
 }

@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray_background"
-            android:hint="Receipt Items"
+            android:hint="@string/receipt_items"
             style="@style/TextStyle"
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -72,6 +72,7 @@
         android:layout_height="wrap_content"
         android:text="@string/add_a_credit_or_debit_card"
         app:icon="@drawable/credit_card_icon"
+        android:textAlignment="textStart"
         app:iconSize="@dimen/_35sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
