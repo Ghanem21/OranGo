@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [ProductsEntity::class], version = 1)
 abstract class OranGoDataBase : RoomDatabase() {
-    abstract val asteroidDao: Dao
+    abstract val orangoDao: Dao
 
     companion object {
         @Volatile

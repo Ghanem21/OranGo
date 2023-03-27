@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.example.data.roomDB.ProductsDatabase
+import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.ProductsEntity
 import com.example.orango.databinding.ActivityMainBinding
 
@@ -22,17 +22,17 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
 
-        val db = ProductsDatabase.getInstance(this)
+        val db = OranGoDataBase.getInstance(this)
 
-        val products = db.productsDao()
-        val productlists : List<ProductsEntity> = products.getProducts()
+        val dao = db.orangoDao
+        val productlists : List<ProductsEntity> = dao.getProducts()
         Log.e("productlists", productlists.toString())
 
-        products.insertProducts(ProductsEntity(
+        dao.insertProducts(ProductsEntity(
             1,"Fruits", 2, "tomato_img", 1, "line 2",
             20, 200, "Tomato", 7))
 
-        Log.e("productlists", products.getProducts().toString())
+        Log.e("productlists", dao.getProducts().toString())
 
     }
     override fun onSupportNavigateUp(): Boolean {
