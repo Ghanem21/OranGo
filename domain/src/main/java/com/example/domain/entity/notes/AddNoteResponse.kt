@@ -1,4 +1,7 @@
 package com.example.domain.entity.notes
 
-class AddNoteResponse {
-}
+data class AddNoteResponse (
+    val error: String?,
+    val msg: String,
+    val status: Boolean
+)

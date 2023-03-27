@@ -1,4 +1,7 @@
 package com.example.domain.entity.customerPoints
 
-class PointsResponse {
-}
+data class PointsResponse (
+    val points: Int,
+    val msg: String,
+    val status: Boolean
+)

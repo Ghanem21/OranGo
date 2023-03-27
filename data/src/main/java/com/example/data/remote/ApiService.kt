@@ -89,9 +89,6 @@ interface ApiService {
         @Field("quantity") quantity: Int,
     ): AddNoteResponse
 
-    @GET("newRequest")
-    suspend fun getRequest(): NewRequestResponse
-
     @FormUrlEncoded
     @POST("notes/deleteAll")
     suspend fun deleteAllNotes(
