@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.data.roomDB.OranGoDataBase
-import com.example.data.roomDB.ProductsEntity
 import com.example.orango.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
