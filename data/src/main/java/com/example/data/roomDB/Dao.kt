@@ -1,16 +1,97 @@
 package com.example.data.roomDB
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import com.example.data.roomDB.entities.CategoryEntity
+import com.example.data.roomDB.entities.NoteEntity
+import com.example.data.roomDB.entities.ProductEntity
+import com.example.data.roomDB.entities.ReceiptEntity
 
 @Dao
 interface Dao {
-    @Query("SELECT * FROM products_table")
-    fun getProducts(): List<ProductsEntity>
 
+    //getAllProducts
+    @Query("SELECT * FROM products")
+    fun getProducts(): List<ProductEntity>
+
+    //get product information page
+    @Query("SELECT * FROM products WHERE id = :id")
+    fun getProductInfo(): List<ProductEntity>
+
+    //get similar products in product info page
+    @Query("SELECT * FROM products LIMIT 10")
+    fun getSimilarProducts(): List<ProductEntity>
+
+    // get products list by category id in categories screen
+    @Query("SELECT * FROM products WHERE categoryId = :categoryId")
+    fun getProductsByCategoryId(): List<ProductEntity>
+
+
+    //return bestselling list in home page
+    @Query("SELECT * FROM products ORDER BY sold_units DESC LIMIT 5")
+    fun getSubBestSelling(): List<ProductEntity>
+
+    //return all bestselling list
+    @Query("SELECT * FROM products ORDER BY sold_units DESC LIMIT 20")
+    fun getAllBestSelling(): List<ProductEntity>
+
+
+
+    //return offers list in home page
+    @Query("SELECT * FROM products WHERE offerValue <> 0 LIMIT 3")
+    fun getSubOffers(): List<ProductEntity>
+
+    //return all offers list
+    @Query("SELECT * FROM products WHERE offerValue <> 0")
+    fun getAllOffers(): List<ProductEntity>
+
+
+    // insert a favorite product
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertProducts(productsList: ProductsEntity)
+    fun insertFavorite(): List<ProductEntity>
+
+    // delete product from favourite list
+    @Delete
+    fun deleteFavorite(): List<ProductEntity>
+
+    // get favourite products list
+    @Query("SELECT * FROM products WHERE liked = :1")
+    fun getFavouriteProducts(): List<ProductEntity>
+
+
+    // get all categories list
+    @Query("SELECT * FROM categories")
+    fun getAllCategories(): List<CategoryEntity>
+
+    // get categories list in home & categories screen
+    @Query("SELECT * FROM categories LIMIT 5")
+    fun getSubCategories(): List<CategoryEntity>
+
+
+    // get all list of notes
+    @Query("SELECT * FROM note")
+    fun getNotes(): List<NoteEntity>
+
+    // insert new note
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addNote(){}
+
+    // delete a note
+    @Delete
+    fun deleteNote(){}
+
+    //delete all notes
+    @Delete
+    fun deleteAllNotes(){}
+
+    // update a note quantity
+    @Update
+    fun updateNote(){}
+
+
+    // return list of receipt history
+    @Query("SELECT * FROM receipts")
+    fun getReceipts(): List<ReceiptEntity>
+
 
 
 }

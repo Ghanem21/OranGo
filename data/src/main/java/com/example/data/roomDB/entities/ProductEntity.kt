@@ -14,5 +14,6 @@ data class ProductEntity(
     val offerValue: Int,
     val price: Int,
     val productName: String,
-    val quantity: Int
+    val quantity: Int,
+    val sold_units: Int
 )

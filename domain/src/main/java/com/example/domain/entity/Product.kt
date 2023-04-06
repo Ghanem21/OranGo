@@ -16,5 +16,6 @@ data class Product(
     val price: Int,
     @Json(name = "product_name")
     val productName: String,
-    val quantity: Int
+    val quantity: Int,
+    val sold_units: Int
 )
