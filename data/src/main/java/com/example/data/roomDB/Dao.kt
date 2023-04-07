@@ -15,15 +15,15 @@ interface Dao {
 
     //get product information page
     @Query("SELECT * FROM products WHERE id = :id")
-    fun getProductInfo(): List<ProductEntity>
+    fun getProductInfo(id: Int): List<ProductEntity>
 
     //get similar products in product info page
-    @Query("SELECT * FROM products LIMIT 10")
-    fun getSimilarProducts(): List<ProductEntity>
+    @Query("SELECT * FROM products WHERE categoryId = :categoryId LIMIT 10")
+    fun getSimilarProducts(categoryId: Int): List<ProductEntity>
 
     // get products list by category id in categories screen
     @Query("SELECT * FROM products WHERE categoryId = :categoryId")
-    fun getProductsByCategoryId(): List<ProductEntity>
+    fun getProductsByCategoryId(categoryId: Int): List<ProductEntity>
 
 
     //return bestselling list in home page
@@ -37,21 +37,17 @@ interface Dao {
 
 
     //return offers list in home page
-    @Query("SELECT * FROM products WHERE offerValue <> 0 LIMIT 3")
+    @Query("SELECT * FROM products ORDER BY offerValue DESC LIMIT 3")
     fun getSubOffers(): List<ProductEntity>
 
     //return all offers list
-    @Query("SELECT * FROM products WHERE offerValue <> 0")
+    @Query("SELECT * FROM products WHERE offerValue != 0")
     fun getAllOffers(): List<ProductEntity>
 
 
-    // insert a favorite product
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavorite(): List<ProductEntity>
-
-    // delete product from favourite list
-    @Delete
-    fun deleteFavorite(): List<ProductEntity>
+    // update product favourite
+    @Update
+    fun setProductFavouriteState(){}
 
     // get favourite products list
     @Query("SELECT * FROM products WHERE liked = :1")
@@ -62,7 +58,7 @@ interface Dao {
     @Query("SELECT * FROM categories")
     fun getAllCategories(): List<CategoryEntity>
 
-    // get categories list in home & categories screen
+    // get categories list in home screen
     @Query("SELECT * FROM categories LIMIT 5")
     fun getSubCategories(): List<CategoryEntity>
 
