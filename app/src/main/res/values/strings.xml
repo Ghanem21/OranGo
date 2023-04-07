@@ -124,4 +124,5 @@
     <string name="suggested_meals">Suggested Meals</string>
     <string name="back_to_home">Back to Home</string>
     <string name="receipt_items">Receipt Items</string>
+    <string name="scan">Scan</string>
 </resources>
