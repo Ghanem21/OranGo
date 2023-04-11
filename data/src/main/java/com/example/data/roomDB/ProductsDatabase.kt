@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.data.roomDB.entities.ProductEntity
 
-@Database(entities = [ProductsEntity::class], version = 1)
+@Database(entities = [ProductEntity::class], version = 1)
 abstract class OranGoDataBase : RoomDatabase() {
     abstract val orangoDao: Dao
 
