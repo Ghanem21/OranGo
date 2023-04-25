@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
+import com.example.domain.entity.json.notes.Note
 
 
 @Entity(tableName = "note",
@@ -22,3 +23,23 @@ data class NoteEntity(
     val quantity: Int
 )
 
+
+fun List<NoteEntity>.asJsonModel(): List<Note> {
+    return map {
+        Note(
+            id = it.id,
+            productId = it.productId,
+            quantity = it.quantity
+        )
+    }
+}
+
+fun List<Note>.asDatabaseModel(): List<NoteEntity> {
+    return map {
+        NoteEntity(
+            id = it.id,
+            productId= it.productId,
+            quantity = it.quantity
+        )
+    }
+}
