@@ -11,7 +11,7 @@
         android:id="@+id/signUpLogo"
         android:layout_width="@dimen/_125sdp"
         android:layout_height="@dimen/_125sdp"
-        android:src="@drawable/sign_up_logo"
+        android:src="@drawable/log_in_logo"
         app:layout_constraintBottom_toTopOf="@+id/signupTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

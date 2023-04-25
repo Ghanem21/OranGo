@@ -1,17 +1,17 @@
 package com.example.data.remote
 
-import com.example.domain.entity.auth.logIn.LogInResponse
-import com.example.domain.entity.auth.signUp.SignUpResponse
-import com.example.domain.entity.category.AllCategory.CategoryResponse
-import com.example.domain.entity.category.productOfCategory.CategoryProductResponse
-import com.example.domain.entity.customerPoints.PointsResponse
-import com.example.domain.entity.feedback.AddFeedbackResponse
-import com.example.domain.entity.notes.*
-import com.example.domain.entity.products.AllProductResponse
-import com.example.domain.entity.products.DeleteFromFavouriteResponse
-import com.example.domain.entity.products.FavouriteProductsResponse
-import com.example.domain.entity.products.InsertToFavouriteResponse
-import com.example.domain.entity.receipt.AllReceiptResponse
+import com.example.domain.entity.json.auth.logIn.LogInResponse
+import com.example.domain.entity.json.auth.signUp.SignUpResponse
+import com.example.domain.entity.json.category.AllCategory.CategoryResponse
+import com.example.domain.entity.json.category.productOfCategory.CategoryProductResponse
+import com.example.domain.entity.json.customerPoints.PointsResponse
+import com.example.domain.entity.json.feedback.AddFeedbackResponse
+import com.example.domain.entity.json.notes.*
+import com.example.domain.entity.json.products.AllProductResponse
+import com.example.domain.entity.json.products.DeleteFromFavouriteResponse
+import com.example.domain.entity.json.products.FavouriteProductsResponse
+import com.example.domain.entity.json.products.InsertToFavouriteResponse
+import com.example.domain.entity.json.receipt.AllReceiptResponse
 import retrofit2.http.*
 
 interface ApiService {

@@ -1,17 +1,22 @@
 package com.example.data.roomDB
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
 import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.NoteEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
+import com.example.domain.useCase.GetProducts
 
 @Dao
 interface Dao {
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addProduct(products: List<ProductEntity>)
+
     //getAllProducts
     @Query("SELECT * FROM products")
-    fun getProducts(): List<ProductEntity>
+    fun getProducts(): LiveData<List<ProductEntity>>
 
     //get product information page
     @Query("SELECT * FROM products WHERE id = :id")
@@ -47,11 +52,11 @@ interface Dao {
 
     // update product favourite
     @Update
-    fun setProductFavouriteState(){}
+    fun setProductFavouriteState(product : ProductEntity)
 
     // get favourite products list
-    @Query("SELECT * FROM products WHERE liked = :1")
-    fun getFavouriteProducts(): List<ProductEntity>
+    @Query("SELECT * FROM products WHERE liked = 1")
+    fun getFavouriteProducts(): LiveData<List<ProductEntity>>
 
 
     // get all categories list
