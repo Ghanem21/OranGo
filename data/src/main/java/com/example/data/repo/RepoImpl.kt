@@ -5,11 +5,13 @@ import com.example.data.remote.Api
 import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.asDatabaseModel
+import com.example.domain.entity.json.auth.logIn.CustomerData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RepoImpl (private val database: OranGoDataBase) {
-
+    var customerData : CustomerData? = null
+    var currentError : String? = null
     suspend fun refreshProducts() {
 
         withContext(Dispatchers.IO) {
@@ -39,5 +41,18 @@ class RepoImpl (private val database: OranGoDataBase) {
     }
 
     val favorite: LiveData<List<ProductEntity>> = database.orangoDao.getFavouriteProducts()
+
+    suspend fun logIn(email : String , password : String) : Boolean{
+        return withContext(Dispatchers.IO){
+            val logInResponse = Api.retrofitService.logIn(email, password)
+            logInResponse.customerData?.let { customerData ->
+                this@RepoImpl.customerData = customerData
+            }
+            logInResponse.error?.let {error ->
+                currentError = error
+            }
+            return@withContext logInResponse.status
+        }
+    }
 
 }
