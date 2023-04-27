@@ -5,13 +5,12 @@ import com.example.data.remote.Api
 import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.asDatabaseModel
-import com.example.domain.entity.json.auth.logIn.CustomerData
+import com.example.domain.entity.json.auth.signUp.Error
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RepoImpl (private val database: OranGoDataBase) {
-    var customerData : CustomerData? = null
-    var currentError : String? = null
+class RepoImpl(private val database: OranGoDataBase) {
+    var signUPError : Error? = null
     suspend fun refreshProducts() {
 
         withContext(Dispatchers.IO) {
@@ -24,34 +23,36 @@ class RepoImpl (private val database: OranGoDataBase) {
     val products: LiveData<List<ProductEntity>> = database.orangoDao.getProducts()
 
 
-    suspend fun updatefavorites(product : ProductEntity) {
+    suspend fun updatefavorites(product: ProductEntity) {
 
         withContext(Dispatchers.IO) {
             database.orangoDao.setProductFavouriteState(product)
-            if(product.liked == 1) Api.retrofitService.insertToFavourite(1,product.id)
-            else Api.retrofitService.deleteFromFavourite(1,product.id)
+            if (product.liked == 1) Api.retrofitService.insertToFavourite(1, product.id)
+            else Api.retrofitService.deleteFromFavourite(1, product.id)
         }
 
     }
 
-    suspend fun clearUserDB(){
-        withContext(Dispatchers.IO){
+    suspend fun clearUserDB() {
+        withContext(Dispatchers.IO) {
             database.clearAllTables()
         }
     }
 
     val favorite: LiveData<List<ProductEntity>> = database.orangoDao.getFavouriteProducts()
 
-    suspend fun logIn(email : String , password : String) : Boolean{
-        return withContext(Dispatchers.IO){
-            val logInResponse = Api.retrofitService.logIn(email, password)
-            logInResponse.customerData?.let { customerData ->
-                this@RepoImpl.customerData = customerData
+    suspend fun signUp(
+        username: String,
+        email: String,
+        phoneNumber: String,
+        password: String
+    ): Boolean {
+        return withContext(Dispatchers.IO) {
+            val signUpResponse = Api.retrofitService.signUp(username, email, phoneNumber, password)
+            signUpResponse.error?.let { error ->
+                signUPError = error
             }
-            logInResponse.error?.let {error ->
-                currentError = error
-            }
-            return@withContext logInResponse.status
+            return@withContext signUpResponse.status
         }
     }
 

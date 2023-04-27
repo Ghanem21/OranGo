@@ -57,17 +57,17 @@ class MainActivity : AppCompatActivity() {
 //        val productEntity = product.asDatabaseModel()
 //
 //        Log.d("TEST", "${productEntity[0]}")
+
+
+//        val db = OranGoDataBase.getInstance(this)
+//        val dao = db.orangoDao
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            dao.addProduct(productEntity)
+//        }
 //
-//
-////        val db = OranGoDataBase.getInstance(this)
-////        val dao = db.orangoDao
-////        lifecycleScope.launch(Dispatchers.IO) {
-////            dao.addProduct(productEntity)
-////        }
-////
-////        val dao = db.orangoDao
-////        val repo = RepoImpl(db)
-////        repo.insertFavorite(productEntity)
+//        val dao = db.orangoDao
+//        val repo = RepoImpl(db)
+//        repo.insertFavorite(productEntity)
 
     }
     override fun onSupportNavigateUp(): Boolean {
