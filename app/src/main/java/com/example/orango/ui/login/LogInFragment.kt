@@ -67,14 +67,18 @@ class LogInFragment : Fragment() {
         binding.logInButton.setOnClickListener {
             val email = binding.emailEditText.text.toString().trim()
             if (!viewModel.validateEmail(email)) {
-                binding.emailEditText.error = "Please enter a valid email address"
+                binding.emailTextInputLayout.error = "Please enter a valid email address"
                 return@setOnClickListener
+            }else{
+                binding.emailTextInputLayout.error = null
             }
 
             val password = binding.passwordEditText.text.toString().trim()
             if (!viewModel.validatePassword(password)) {
-                binding.passwordEditText.error = "Password must be at least 8 characters long"
+                binding.passwordTextInputLayout.error = "Password must be at least 8 characters long"
                 return@setOnClickListener
+            }else{
+                binding.passwordTextInputLayout.error = null
             }
 
             viewModel.logIn(email, password)
