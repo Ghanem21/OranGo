@@ -44,6 +44,7 @@
             android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPersonName"
             android:hint="@string/username" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,6 +62,7 @@
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:hint="@string/email" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,6 +80,7 @@
             android:id="@+id/phoneEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             android:hint="@string/phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +89,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:startIconDrawable="@drawable/baseline_lock_24"
-        app:layout_constraintBottom_toTopOf="@+id/saveChangeButton"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneTextInputLayout">
@@ -95,11 +99,12 @@
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/saveChangeButton"
+        android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
@@ -122,7 +127,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveChangeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpButton" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logInButton"
