@@ -43,12 +43,12 @@ class MainActivity : AppCompatActivity() {
 //        )
 //
 //        Log.e("productlists", dao.getProducts().toString())
-//
-//
-//
-//
-//
-//
+
+
+
+
+
+
 //        val product : List<ProductJson> = listOf(
 //            ProductJson(1 , "veg", 2, "dbvkjsd" ,
 //        1,"fvsddfv",20,50,"carrot",8,3)

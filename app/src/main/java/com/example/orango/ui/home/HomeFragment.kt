@@ -1,11 +1,10 @@
 package com.example.orango.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.orango.R
+import androidx.fragment.app.Fragment
 import com.example.orango.data.DataManager
 import com.example.orango.databinding.FragmentHomeBinding
 import com.example.orango.util.ViewPager
@@ -20,7 +19,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val productAdapter by lazy {
-        ProductRecyclerViewAdapter(ArrayList())
+        ProductRecyclerViewAdapter(ArrayList(),1)
     }
 
     private val categoryAdapter by lazy {
