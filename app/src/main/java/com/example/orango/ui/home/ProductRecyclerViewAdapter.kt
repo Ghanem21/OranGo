@@ -28,7 +28,7 @@ class ProductRecyclerViewAdapter(
             binding.productName.text = product.productName
             binding.productLocation.text = product.location
             binding.priceBeforeDicount.text = product.price.toString()
-            binding.priceAfterDicount.text = (product.price - (product.price * product.offerValue)).toString()
+            binding.priceAfterDicount.text = (product.price - (product.price * (product.offerValue / 100f))).toString()
             Glide.with(binding.root.context)
                 .load(product.image)
                 .centerCrop()

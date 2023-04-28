@@ -47,7 +47,7 @@ class FavouritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         populateFavouriteAdapter()
 
-        binding.imageView6.setOnClickListener {
+        binding.backImage.setOnClickListener {
             findNavController().navigate(R.id.action_favouritesFragment_to_servicesFragment)
         }
 

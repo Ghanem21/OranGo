@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RepoImpl (private val database: OranGoDataBase) {
-    private val favoritesLiveData = MutableLiveData<List<ProductEntity>>()
+    private val favoritesLiveData = MutableLiveData<List<ProductEntity>>(database.orangoDao.getFavouriteProducts().value ?: listOf())
     val favorites :LiveData<List<ProductEntity>> = favoritesLiveData
     suspend fun refreshProducts() {
 
@@ -25,7 +25,9 @@ class RepoImpl (private val database: OranGoDataBase) {
         withContext(Dispatchers.IO) {
             val favouriteProductsResponse = Api.retrofitService.getFavouriteProducts(customerId = customerId)
             Log.d("TAGGG", "refreshFavourites: ${favouriteProductsResponse.products}")
-            favoritesLiveData.value = favouriteProductsResponse.products.asDatabaseModel()
+            withContext(Dispatchers.Main) {
+                favoritesLiveData.value = favouriteProductsResponse.products.asDatabaseModel()
+            }
         }
     }
 
