@@ -49,7 +49,7 @@ interface Dao {
 
     //return all offers list
     @Query("SELECT * FROM products WHERE offerValue != 0")
-    fun getAllOffers(): List<ProductEntity>
+    fun getAllOffers(): LiveData<List<ProductEntity>>
 
 
     // update product favourite

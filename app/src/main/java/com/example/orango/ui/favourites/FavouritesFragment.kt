@@ -17,7 +17,7 @@ class FavouritesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val productRecyclerViewAdapter by lazy {
-        ProductRecyclerViewAdapter(mutableListOf(), 2)
+        ProductRecyclerViewAdapter(viewModel.favourites.value?.toMutableList() ?: mutableListOf(), 2)
     }
 
     override fun onCreateView(

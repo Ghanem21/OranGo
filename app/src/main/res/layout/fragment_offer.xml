@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.offer.OfferFragment">
+
+    <ImageView
+        android:id="@+id/backImage"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        app:layout_constraintBottom_toTopOf="@+id/productRecycleView"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24"
+        app:tint="@color/primaryColor" />
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/TitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/offers"
+        android:textColor="@color/primaryColor"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/backImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backImage"
+        app:layout_constraintTop_toTopOf="@+id/backImage" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecycleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backImage"
+        tools:listitem="@layout/card_product" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
