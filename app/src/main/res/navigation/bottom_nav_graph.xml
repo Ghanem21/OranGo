@@ -27,6 +27,19 @@
         android:id="@+id/servicesFragment"
         android:name="com.example.orango.ui.fourMainFragments.ServicesFragment"
         android:label="fragment_services"
-        tools:layout="@layout/fragment_services"/>
+        tools:layout="@layout/fragment_services">
+        <action
+            android:id="@+id/action_servicesFragment_to_favouritesFragment"
+            app:destination="@id/favouritesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.example.orango.ui.favourites.FavouritesFragment"
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_servicesFragment"
+            app:destination="@id/servicesFragment" />
+    </fragment>
 
 </navigation>
