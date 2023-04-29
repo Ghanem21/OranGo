@@ -6,7 +6,6 @@ import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.NoteEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
-import com.example.domain.useCase.GetProducts
 
 @Dao
 interface Dao {
@@ -36,8 +35,8 @@ interface Dao {
     fun getSubBestSelling(): List<ProductEntity>
 
     //return all bestselling list
-    @Query("SELECT * FROM products ORDER BY sold_units DESC LIMIT 20")
-    fun getAllBestSelling(): List<ProductEntity>
+    @Query("SELECT * FROM products ORDER BY sold_units DESC")
+    fun getAllBestSelling(): LiveData<List<ProductEntity>>
 
 
 

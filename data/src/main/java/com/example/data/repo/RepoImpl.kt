@@ -14,13 +14,15 @@ import kotlinx.coroutines.withContext
 class RepoImpl (private val database: OranGoDataBase) {
     private val favoritesLiveData = MutableLiveData<List<ProductEntity>>(database.orangoDao.getFavouriteProducts().value ?: listOf())
     val favorites :LiveData<List<ProductEntity>> = favoritesLiveData
+
+    val bestSellingProduct = database.orangoDao.getAllBestSelling()
     var customerData : CustomerData? = null
     var currentError : String? = null
     var signUPError : Error? = null
 
-    suspend fun refreshProducts() {
+    suspend fun refreshProducts(customerId: Int) {
         withContext(Dispatchers.IO) {
-            val productsList = Api.retrofitService.getAllProducts(customerId = 1)
+            val productsList = Api.retrofitService.getAllProducts(customerId = customerId)
             database.orangoDao.addProduct(productsList.products.asDatabaseModel())
         }
 
