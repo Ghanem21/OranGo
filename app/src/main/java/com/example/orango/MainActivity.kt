@@ -1,10 +1,21 @@
 package com.example.orango
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.data.remote.Api
+import com.example.data.repo.RepoImpl
+import com.example.data.roomDB.OranGoDataBase
+import com.example.data.roomDB.entities.ProductEntity
+import com.example.data.roomDB.entities.asDatabaseModel
+import com.example.domain.entity.json.ProductJson
 import com.example.orango.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,8 +36,6 @@ class MainActivity : AppCompatActivity() {
 //            Log.e("feedbackStatus", feedbackResponse.status.toString())
 //        }
 //
-
-
 
 //        val db = OranGoDataBase.getInstance(this)
 //
@@ -57,17 +66,8 @@ class MainActivity : AppCompatActivity() {
 //        val productEntity = product.asDatabaseModel()
 //
 //        Log.d("TEST", "${productEntity[0]}")
-//
-//
-////        val db = OranGoDataBase.getInstance(this)
-////        val dao = db.orangoDao
-////        lifecycleScope.launch(Dispatchers.IO) {
-////            dao.addProduct(productEntity)
-////        }
-////
-////        val dao = db.orangoDao
-////        val repo = RepoImpl(db)
-////        repo.insertFavorite(productEntity)
+
+
 
     }
     override fun onSupportNavigateUp(): Boolean {

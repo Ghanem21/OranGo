@@ -6,36 +6,35 @@ import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.asDatabaseModel
 import com.example.domain.entity.json.auth.logIn.CustomerData
+import com.example.domain.entity.json.auth.signUp.Error
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RepoImpl (private val database: OranGoDataBase) {
     var customerData : CustomerData? = null
     var currentError : String? = null
-    suspend fun refreshProducts() {
+    var signUPError : Error? = null
 
+    suspend fun refreshProducts() {
         withContext(Dispatchers.IO) {
             val productslist = Api.retrofitService.getAllProducts(customerId = 1)
             database.orangoDao.addProduct(productslist.products.asDatabaseModel())
         }
-
     }
 
     val products: LiveData<List<ProductEntity>> = database.orangoDao.getProducts()
 
 
-    suspend fun updatefavorites(product : ProductEntity) {
-
+    suspend fun updatefavorites(product: ProductEntity) {
         withContext(Dispatchers.IO) {
             database.orangoDao.setProductFavouriteState(product)
-            if(product.liked == 1) Api.retrofitService.insertToFavourite(1,product.id)
-            else Api.retrofitService.deleteFromFavourite(1,product.id)
+            if (product.liked == 1) Api.retrofitService.insertToFavourite(1, product.id)
+            else Api.retrofitService.deleteFromFavourite(1, product.id)
         }
-
     }
 
-    suspend fun clearUserDB(){
-        withContext(Dispatchers.IO){
+    suspend fun clearUserDB() {
+        withContext(Dispatchers.IO) {
             database.clearAllTables()
         }
     }
@@ -55,4 +54,18 @@ class RepoImpl (private val database: OranGoDataBase) {
         }
     }
 
+    suspend fun signUp(
+        username: String,
+        email: String,
+        phoneNumber: String,
+        password: String
+    ): Boolean {
+        return withContext(Dispatchers.IO) {
+            val signUpResponse = Api.retrofitService.signUp(username, email, phoneNumber, password)
+            signUpResponse.error?.let { error ->
+                signUPError = error
+            }
+            return@withContext signUpResponse.status
+        }
+    }
 }
