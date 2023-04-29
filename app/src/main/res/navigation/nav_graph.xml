@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/editProfileFragment">
+    app:startDestination="@id/offerFragment2">
 
     <fragment
         android:id="@+id/splashScreen"
@@ -44,8 +44,8 @@
             app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.example.orango.ui.editProfile.EditProfileFragment"
-        android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        android:id="@+id/offerFragment2"
+        android:name="com.example.orango.ui.offer.OfferFragment"
+        android:label="fragment_offer"
+        tools:layout="@layout/fragment_offer" />
 </navigation>
