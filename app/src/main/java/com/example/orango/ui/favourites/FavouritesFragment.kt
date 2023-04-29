@@ -25,7 +25,7 @@ class FavouritesFragment : Fragment() {
     }
 
     private val productRecyclerViewAdapter by lazy {
-        ProductRecyclerViewAdapter(mutableListOf(), 2)
+        ProductRecyclerViewAdapter(viewModel.favourites.value?.toMutableList() ?: mutableListOf(), 2)
     }
 
     private val sharedPreferences by lazy {

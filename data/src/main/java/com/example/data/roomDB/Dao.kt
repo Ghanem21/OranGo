@@ -6,7 +6,6 @@ import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.NoteEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
-import com.example.domain.useCase.GetProducts
 
 @Dao
 interface Dao {
@@ -47,7 +46,7 @@ interface Dao {
 
     //return all offers list
     @Query("SELECT * FROM products WHERE offerValue != 0")
-    fun getAllOffers(): List<ProductEntity>
+    fun getAllOffers(): LiveData<List<ProductEntity>>
 
 
     // update product favourite

@@ -24,7 +24,11 @@ class ProductRecyclerViewAdapter(
     inner class FavouriteViewHolder(private val binding: CardProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductEntity) {
-            binding.favouriteIcon.setImageResource(R.drawable.heart_icon)
+            if(product.liked == 0)
+                binding.favouriteIcon.setImageResource(R.drawable.heart_icon)
+            else
+                binding.favouriteIcon.setImageResource(R.drawable.heart_icon)
+
             binding.productName.text = product.productName
             binding.productLocation.text = product.location
             binding.priceBeforeDicount.text = product.price.toString()

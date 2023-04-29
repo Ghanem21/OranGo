@@ -18,9 +18,10 @@ class RepoImpl (private val database: OranGoDataBase) {
     var currentError : String? = null
     var signUPError : Error? = null
 
-    suspend fun refreshProducts() {
+    val offerProducts = database.orangoDao.getAllOffers()
+    suspend fun refreshProducts(customerId: Int) {
         withContext(Dispatchers.IO) {
-            val productsList = Api.retrofitService.getAllProducts(customerId = 1)
+            val productsList = Api.retrofitService.getAllProducts(customerId = customerId)
             database.orangoDao.addProduct(productsList.products.asDatabaseModel())
         }
 
