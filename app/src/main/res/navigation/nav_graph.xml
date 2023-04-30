@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/bestSellingFragment2">
+    app:startDestination="@id/recommendedFragment2">
 
     <fragment
         android:id="@+id/splashScreen"
@@ -44,8 +44,8 @@
             app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
-        android:id="@+id/bestSellingFragment2"
-        android:name="com.example.orango.ui.bestSelling.BestSellingFragment"
-        android:label="fragment_best_selling"
-        tools:layout="@layout/fragment_best_selling" />
+        android:id="@+id/recommendedFragment2"
+        android:name="com.example.orango.ui.recommended.RecommendedFragment"
+        android:label="fragment_recommended"
+        tools:layout="@layout/fragment_recommended" />
 </navigation>
