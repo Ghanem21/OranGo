@@ -17,13 +17,13 @@ class RepoImpl (private val database: OranGoDataBase) {
     var customerData : CustomerData? = null
     var currentError : String? = null
     var signUPError : Error? = null
+    val recommendedProducts = database.orangoDao.getRecommendedProduct()
 
-    suspend fun refreshProducts() {
+    suspend fun refreshProducts(customerId: Int) {
         withContext(Dispatchers.IO) {
-            val productsList = Api.retrofitService.getAllProducts(customerId = 1)
+            val productsList = Api.retrofitService.getAllProducts(customerId = customerId)
             database.orangoDao.addProduct(productsList.products.asDatabaseModel())
         }
-
     }
     suspend fun refreshFavourites(customerId : Int) {
         withContext(Dispatchers.IO) {

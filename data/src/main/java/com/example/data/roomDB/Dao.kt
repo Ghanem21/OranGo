@@ -6,7 +6,6 @@ import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.NoteEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
-import com.example.domain.useCase.GetProducts
 
 @Dao
 interface Dao {
@@ -93,6 +92,7 @@ interface Dao {
     @Query("SELECT * FROM receipts")
     fun getReceipts(): List<ReceiptEntity>
 
-
+    @Query("SELECT * FROM products ORDER BY RANDOM()")
+    fun getRecommendedProduct(): LiveData<List<ProductEntity>>
 
 }
