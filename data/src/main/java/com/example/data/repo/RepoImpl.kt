@@ -12,11 +12,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RepoImpl (private val database: OranGoDataBase) {
-    private val favoritesLiveData = MutableLiveData<List<ProductEntity>>(database.orangoDao.getFavouriteProducts().value ?: listOf())
+    private val favoritesLiveData = MutableLiveData(database.orangoDao.getFavouriteProducts().value ?: listOf())
     val favorites :LiveData<List<ProductEntity>> = favoritesLiveData
+    private val categoryProductsLiveData = MutableLiveData<List<ProductEntity>>()
+    val categoryProducts :LiveData<List<ProductEntity>> = categoryProductsLiveData
     var customerData : CustomerData? = null
     var currentError : String? = null
     var signUPError : Error? = null
+    val categories = database.orangoDao.getAllCategories()
+
+    suspend fun refreshCategories(){
+        withContext(Dispatchers.IO){
+            val categoryResponse = Api.retrofitService.getCategory()
+            database.orangoDao.insertCategories(categoryResponse.categories.asDatabaseModel())
+        }
+    }
 
     suspend fun refreshProducts() {
         withContext(Dispatchers.IO) {
@@ -79,6 +89,14 @@ class RepoImpl (private val database: OranGoDataBase) {
                 signUPError = error
             }
             return@withContext signUpResponse.status
+        }
+    }
+
+    suspend fun getProductByCategoryId(categoryId: Int) {
+        withContext(Dispatchers.IO){
+            categoryProductsLiveData.value = database.orangoDao.getProductsByCategoryId(categoryId)
+            val categoryProductResponse = Api.retrofitService.getProductOfCategory(categoryId)
+            categoryProductsLiveData.value = categoryProductResponse.products.asDatabaseModel()
         }
     }
 }

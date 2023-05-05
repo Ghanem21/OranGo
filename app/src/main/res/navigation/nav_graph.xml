@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/favouritesFragment2">
+    app:startDestination="@id/categoriesScreenFragment">
 
     <fragment
         android:id="@+id/splashScreen"
@@ -44,8 +44,8 @@
             app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
-        android:id="@+id/favouritesFragment2"
-        android:name="com.example.orango.ui.favourites.FavouritesFragment"
-        android:label="fragment_favourites"
-        tools:layout="@layout/fragment_favourites" />
+        android:id="@+id/categoriesScreenFragment"
+        android:name="com.example.orango.ui.categoriesScreen.CategoriesScreenFragment"
+        android:label="fragment_categories_screen"
+        tools:layout="@layout/fragment_categories_screen" />
 </navigation>

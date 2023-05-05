@@ -6,7 +6,6 @@ import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.NoteEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
-import com.example.domain.useCase.GetProducts
 
 @Dao
 interface Dao {
@@ -61,11 +60,14 @@ interface Dao {
 
     // get all categories list
     @Query("SELECT * FROM categories")
-    fun getAllCategories(): List<CategoryEntity>
+    fun getAllCategories(): LiveData<List<CategoryEntity>>
 
     // get categories list in home screen
     @Query("SELECT * FROM categories LIMIT 5")
     fun getSubCategories(): List<CategoryEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCategories(categories : List<CategoryEntity>)
 
 
     // get all list of notes
