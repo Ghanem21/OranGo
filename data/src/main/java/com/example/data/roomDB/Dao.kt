@@ -63,11 +63,14 @@ interface Dao {
 
     // get all categories list
     @Query("SELECT * FROM categories")
-    fun getAllCategories(): List<CategoryEntity>
+    fun getAllCategories(): LiveData<List<CategoryEntity>>
 
     // get categories list in home screen
     @Query("SELECT * FROM categories LIMIT 5")
     fun getSubCategories(): LiveData<List<CategoryEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCategories(categories : List<CategoryEntity>)
 
 
     // get all list of notes

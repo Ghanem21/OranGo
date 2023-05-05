@@ -1,60 +1,75 @@
 package com.example.orango.ui.categoriesScreen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.orango.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.orango.databinding.FragmentCategoriesScreenBinding
+import com.example.orango.ui.home.CategoryRecyclerViewAdapter
+import com.example.orango.ui.home.ProductRecyclerViewAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CategoriesScreenFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CategoriesScreenFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val viewModel: CategoryViewModel by viewModels()
+    private var _binding: FragmentCategoriesScreenBinding? = null
+    private val binding get() = _binding!!
+    private val linearLayoutManagerHorizontal by lazy {
+        LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val categoryRecyclerViewAdapter by lazy {
+        CategoryRecyclerViewAdapter(viewModel.categories.value?.toMutableList() ?: mutableListOf())
+    }
+
+    private val linearLayoutManagerVertical by lazy {
+        LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+    }
+
+    private val productRecyclerViewAdapter by lazy {
+        ProductRecyclerViewAdapter(viewModel.product.value?.toMutableList() ?: mutableListOf(),2)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories_screen, container, false)
+    ): View {
+        _binding = FragmentCategoriesScreenBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment categoriesScreenFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CategoriesScreenFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        populateCategoryAdapter()
+        populateProductAdapter()
+
+        viewModel.categories.observe(viewLifecycleOwner){ categories ->
+            categoryRecyclerViewAdapter.updateList(categories.toMutableList())
+        }
+
+        categoryRecyclerViewAdapter.selectedCategory.observe(viewLifecycleOwner){categoryId->
+            categoryId?.let {
+                viewModel.getProductByCategoryId(categoryId)
             }
+        }
+
+        viewModel.product.observe(viewLifecycleOwner){products ->
+            productRecyclerViewAdapter.updateList(products)
+        }
+    }
+
+    private fun populateCategoryAdapter() {
+        binding.categoryRecycleView.layoutManager = linearLayoutManagerHorizontal
+
+        val adapter = categoryRecyclerViewAdapter
+        binding.categoryRecycleView.adapter = adapter
+    }
+
+    private fun populateProductAdapter() {
+        binding.productRecycleView.layoutManager = linearLayoutManagerVertical
+
+        val adapter = productRecyclerViewAdapter
+        binding.productRecycleView.adapter = adapter
     }
 }
