@@ -11,7 +11,7 @@ data class User(
     val id: Int,
     val image: String?,
     val limited_price: Double?,
-    val password: String,
+    var password: String,
     val phone_number: String,
     val points: Int,
     val remember_token: String?,

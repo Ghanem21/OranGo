@@ -7,8 +7,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 //base url of website
-private const val BASE_URL =
-    "https://40f5-105-37-90-242.ngrok-free.app/api/"
+const val BASE_URL =
+    "https://ed2f-105-37-19-178.ngrok-free.app/api/"
 
 //moshi build which we will use to convert json to object kotlin
 private val moshi = Moshi.Builder()
