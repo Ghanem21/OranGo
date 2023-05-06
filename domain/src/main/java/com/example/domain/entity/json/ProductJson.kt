@@ -19,4 +19,3 @@ data class ProductJson(
     val quantity: Int,
     val sold_units: Int = 0
 )
-

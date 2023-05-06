@@ -1,5 +1,6 @@
 package com.example.data.repo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.data.remote.Api
@@ -7,14 +8,21 @@ import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.asDatabaseModel
 import com.example.domain.entity.json.auth.logIn.CustomerData
+import com.example.domain.entity.json.auth.logIn.User
 import com.example.domain.entity.json.auth.signUp.Error
+import com.example.domain.entity.json.auth.updateProfile.toUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class RepoImpl (private val database: OranGoDataBase) {
     private val favoritesLiveData = MutableLiveData<List<ProductEntity>>(database.orangoDao.getFavouriteProducts().value ?: listOf())
     val favorites :LiveData<List<ProductEntity>> = favoritesLiveData
     var customerData : CustomerData? = null
+    var user : User? = null
     var currentError : String? = null
     var signUPError : Error? = null
 
@@ -80,5 +88,57 @@ class RepoImpl (private val database: OranGoDataBase) {
             }
             return@withContext signUpResponse.status
         }
+    }
+
+    suspend fun updateProfile(
+        id: Int,
+        username: String,
+        email: String,
+        phoneNumber: String,
+        password: String,
+        imageUri: String
+    ) {
+        withContext(Dispatchers.IO){
+            val idRequestBody = id.toString().toRequestBody(MultipartBody.FORM)
+            val usernameRequestBody = username.toRequestBody(MultipartBody.FORM)
+            val emailRequestBody = email.toRequestBody(MultipartBody.FORM)
+            val phoneNumberRequestBody = phoneNumber.toRequestBody(MultipartBody.FORM)
+            val passwordRequestBody = password.toRequestBody(MultipartBody.FORM)
+            val updateProfileResponse = if(imageUri.isNotBlank()) {
+                val file = File(imageUri)
+                val imageRequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val imagePart = imageRequestBody.let {
+                    MultipartBody.Part.createFormData("image", file.name, it)
+                }
+                Api.retrofitService.updateProfile(idRequestBody,usernameRequestBody, emailRequestBody, phoneNumberRequestBody, passwordRequestBody,imagePart)
+
+            }else
+                Api.retrofitService.updateProfile(idRequestBody,usernameRequestBody, emailRequestBody, phoneNumberRequestBody, passwordRequestBody,null)
+
+            Log.d("TAGGG", "updateProfile: $updateProfileResponse")
+            updateProfileResponse.customerData?.let { customerData ->
+                this@RepoImpl.user = customerData.toUser()
+                Log.d("TAGGG", "updateProfile: ${this@RepoImpl.customerData}")
+            }
+            return@withContext updateProfileResponse.status
+        }
+    }
+}
+
+fun String.toRequestBody(contentType: MediaType): RequestBody {
+    return RequestBody.create(contentType, this)
+}
+
+
+fun File.asRequestBody(mediaType: MediaType?): RequestBody {
+    return RequestBody.create(mediaType, this)
+}
+
+fun String.toMediaTypeOrNull(): MediaType? {
+    return try {
+        MediaType.parse(this)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
     }
 }

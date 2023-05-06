@@ -47,6 +47,7 @@ class LogInFragment : Fragment() {
         }
 
         viewModel.customerData.observe(viewLifecycleOwner) { customerData ->
+            customerData.user.password = binding.passwordEditText.text.toString()
             editor.putString("customer_data", Gson().toJson(customerData))
             editor.apply()
 //            val customerDataJson = sharedPreferences.getString("customer_data", null)
