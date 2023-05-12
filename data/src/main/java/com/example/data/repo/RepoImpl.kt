@@ -104,21 +104,20 @@ class RepoImpl (private val database: OranGoDataBase) {
             val emailRequestBody = email.toRequestBody(MultipartBody.FORM)
             val phoneNumberRequestBody = phoneNumber.toRequestBody(MultipartBody.FORM)
             val passwordRequestBody = password.toRequestBody(MultipartBody.FORM)
-            val updateProfileResponse = if(imageUri.isNotBlank()) {
+            val imagePart = if(imageUri.isNotBlank()) {
                 val file = File(imageUri)
                 val imageRequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-                val imagePart = imageRequestBody.let {
+                 imageRequestBody.let {
                     MultipartBody.Part.createFormData("image", file.name, it)
                 }
-                Api.retrofitService.updateProfile(idRequestBody,usernameRequestBody, emailRequestBody, phoneNumberRequestBody, passwordRequestBody,imagePart)
-
             }else
-                Api.retrofitService.updateProfile(idRequestBody,usernameRequestBody, emailRequestBody, phoneNumberRequestBody, passwordRequestBody,null)
+                null
+
+            val updateProfileResponse = Api.retrofitService.updateProfile(idRequestBody,usernameRequestBody, emailRequestBody, phoneNumberRequestBody, passwordRequestBody,imagePart)
 
             Log.d("TAGGG", "updateProfile: $updateProfileResponse")
             updateProfileResponse.customerData?.let { customerData ->
                 this@RepoImpl.user = customerData.toUser()
-                Log.d("TAGGG", "updateProfile: ${this@RepoImpl.customerData}")
             }
             return@withContext updateProfileResponse.status
         }

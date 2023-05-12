@@ -69,10 +69,8 @@ class EditProfileViewModel(private val application: Application) : AndroidViewMo
         viewModelScope.launch {
             try {
                 val imageUri = (sharedPreferences.getString("imageUri","") ?: "").toUri()
-                if(imageUri.path?.isNotEmpty() == true)
-                    repo.updateProfile(customerData.user.id, username, email, phoneNumber, password,getRealPathFromURI(imageUri).orEmpty())
-                else
-                    repo.updateProfile(customerData.user.id, username, email, phoneNumber, password,"")
+                val imagePath = if (imageUri.path?.isNotEmpty() == true) getRealPathFromURI(imageUri) else ""
+                repo.updateProfile(customerData.user.id, username, email, phoneNumber, password, imagePath.orEmpty())
                 repo.user?.password = password
                 customerData.user = repo.user ?: customerData.user
                 editor.putString("customer_data", Gson().toJson(customerData))
