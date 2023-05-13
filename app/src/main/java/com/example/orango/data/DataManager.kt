@@ -4,18 +4,29 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.orango.R
 import com.example.orango.data.models.OnBoardingData
+import com.example.orango.data.models.Product
+import com.example.orango.data.models.SettingAndServicesOption
+import com.example.orango.ui.home.OfferViewPager
 import com.example.orango.ui.onBoarding.ViewPagerFragment
 import com.example.orango.util.BODY
 import com.example.orango.util.IMAGE_ID
+import com.example.orango.util.PRODUCT_ID
 import com.example.orango.util.TITLE
 
 object DataManager {
-    private val onBoardingData = mutableListOf<OnBoardingData>()
-    val onBoardingFragmentList = mutableListOf<Fragment>()
+    private val onBoardingData = ArrayList<OnBoardingData>()
+    val onBoardingFragmentList = ArrayList<Fragment>()
+
+    private val offerProducts = ArrayList<Product>()
+    val offerFragmentList = ArrayList<Fragment>()
+
+    var services : List<SettingAndServicesOption>
 
     init {
         initOnBoardingData()
         initOnBoardingFragmentList()
+        initOfferFragment()
+        services = intiServiceList()
     }
 
     private fun initOnBoardingData() {
@@ -46,5 +57,26 @@ object DataManager {
             onBoardingFragmentList.add(fragment)
 
         }
+    }
+
+    private fun initOfferFragment(){
+        for (product in offerProducts){
+            val bundle = Bundle()
+
+            bundle.putInt(PRODUCT_ID,product.id)
+
+            val fragment = OfferViewPager()
+            fragment.arguments = bundle
+
+            offerFragmentList.add(fragment)
+        }
+    }
+
+    private fun intiServiceList(): List<SettingAndServicesOption> {
+        val suggestedMeals = SettingAndServicesOption(R.drawable.meals,"Suggested Meals")
+        val notes = SettingAndServicesOption(R.drawable.note,"Notes")
+        val favourites = SettingAndServicesOption(R.drawable.baseline_filled_heart_24,"Favourites")
+
+        return listOf(suggestedMeals,notes,favourites)
     }
 }

@@ -9,29 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.orango.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_bestSellingFragment"
-            app:destination="@id/bestSellingFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_categoriesScreenFragment"
-            app:destination="@id/categoriesScreenFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_editProfileFragment2"
-            app:destination="@id/editProfileFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_productFragment"
-            app:destination="@id/productFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/recommendedFragment"
@@ -47,7 +25,7 @@
 
     <fragment
         android:id="@+id/servicesFragment"
-        android:name="com.example.orango.ui.fourMainFragments.ServicesFragment"
+        android:name="com.example.orango.ui.services.ServicesFragment"
         android:label="fragment_services"
         tools:layout="@layout/fragment_services">
         <action
@@ -64,64 +42,14 @@
             app:destination="@id/servicesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/bestSellingFragment"
-        android:name="com.example.orango.ui.bestSelling.BestSellingFragment"
-        android:label="fragment_best_selling"
-        tools:layout="@layout/fragment_best_selling" >
-        <action
-            android:id="@+id/action_bestSellingFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        android:id="@+id/suggestedMealsFragment"
+        android:name="com.example.orango.ui.suggestedMeals.SuggestedMealsFragment"
+        android:label="fragment_suggested_meals"
+        tools:layout="@layout/fragment_suggested_meals" />
     <fragment
-        android:id="@+id/categoriesScreenFragment"
-        android:name="com.example.orango.ui.categoriesScreen.CategoriesScreenFragment"
-        android:label="fragment_categories_screen"
-        tools:layout="@layout/fragment_categories_screen" >
-        <action
-            android:id="@+id/action_categoriesScreenFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <argument
-            android:name="categoryId"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.orango.ui.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.example.orango.ui.setting.SettingFragment"
-        android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" >
-        <action
-            android:id="@+id/action_settingFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.example.orango.ui.editProfile.EditProfileFragment"
-        android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" >
-        <action
-            android:id="@+id/action_editProfileFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/productFragment"
-        android:name="com.example.orango.ui.product.ProductFragment"
-        android:label="fragment_product"
-        tools:layout="@layout/fragment_product" >
-        <action
-            android:id="@+id/action_productFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <argument
-            android:name="productId"
-            app:argType="integer" />
-    </fragment>
+        android:id="@+id/notesFragment"
+        android:name="com.example.orango.ui.notes.NotesFragment"
+        android:label="fragment_notes"
+        tools:layout="@layout/fragment_notes" />
 
 </navigation>
