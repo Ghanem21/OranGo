@@ -51,5 +51,30 @@
         android:name="com.example.orango.ui.notes.NotesFragment"
         android:label="fragment_notes"
         tools:layout="@layout/fragment_notes" />
+    <fragment
+        android:id="@+id/pointFragment"
+        android:name="com.example.orango.ui.point.PointFragment"
+        android:label="fragment_point"
+        tools:layout="@layout/fragment_point" />
+    <fragment
+        android:id="@+id/receiptHistoryFragment"
+        android:name="com.example.orango.ui.receiptHistory.ReceiptHistoryFragment"
+        android:label="fragment_receipt_history"
+        tools:layout="@layout/fragment_receipt_history" />
+    <fragment
+        android:id="@+id/paymentDetailsFragment"
+        android:name="com.example.orango.ui.paymentDetails.PaymentDetailsFragment"
+        android:label="fragment_payment_details"
+        tools:layout="@layout/fragment_payment_details" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.example.orango.ui.contactUs.ContactUsFragment"
+        android:label="fragment_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.orango.ui.aboutus.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
 
 </navigation>
