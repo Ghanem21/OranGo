@@ -14,19 +14,21 @@ import com.example.orango.util.PRODUCT_ID
 import com.example.orango.util.TITLE
 
 object DataManager {
-    private val onBoardingData = mutableListOf<OnBoardingData>()
-    val onBoardingFragmentList = mutableListOf<Fragment>()
+    private val onBoardingData = ArrayList<OnBoardingData>()
+    val onBoardingFragmentList = ArrayList<Fragment>()
 
     private val offerProducts = ArrayList<Product>()
     val offerFragmentList = ArrayList<Fragment>()
 
-    var services = mutableListOf<SettingAndServicesOption>()
+    var services : List<SettingAndServicesOption>
+    var settings : List<SettingAndServicesOption>
 
     init {
         initOnBoardingData()
         initOnBoardingFragmentList()
         initOfferFragment()
-        services.addAll(intiServiceList())
+        services = intiServiceList()
+        settings = intiSettingList()
     }
 
     private fun initOnBoardingData() {
@@ -74,9 +76,21 @@ object DataManager {
 
     private fun intiServiceList(): List<SettingAndServicesOption> {
         val suggestedMeals = SettingAndServicesOption(R.drawable.meals,"Suggested Meals")
-        //val notes = SettingAndServicesOption(R.drawable.note,"Notes")
+        val notes = SettingAndServicesOption(R.drawable.note,"Notes")
         val favourites = SettingAndServicesOption(R.drawable.baseline_filled_heart_24,"Favourites")
 
-        return listOf(suggestedMeals,favourites)
+        return listOf(suggestedMeals,notes,favourites)
+    }
+
+    private fun intiSettingList(): List<SettingAndServicesOption> {
+        val points = SettingAndServicesOption(R.drawable.stars_points,"Points")
+        val receiptHistory = SettingAndServicesOption(R.drawable.history,"Receipts History")
+        val paymentDetails = SettingAndServicesOption(R.drawable.payment_card,"Payment Details")
+        val contactUs = SettingAndServicesOption(R.drawable.contact,"Contact Us")
+        val aboutUs = SettingAndServicesOption(R.drawable.about,"About Us")
+        val logout = SettingAndServicesOption(R.drawable.logout,"Logout")
+        val deleteAccount = SettingAndServicesOption(R.drawable.delete_pin,"Delete Account")
+
+        return listOf(points,receiptHistory,paymentDetails,contactUs,aboutUs,logout,deleteAccount)
     }
 }
