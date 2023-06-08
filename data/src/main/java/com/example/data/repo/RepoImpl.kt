@@ -12,19 +12,34 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RepoImpl (private val database: OranGoDataBase) {
-    private val favoritesLiveData = MutableLiveData<List<ProductEntity>>(database.orangoDao.getFavouriteProducts().value ?: listOf())
+    private val favoritesLiveData = MutableLiveData(database.orangoDao.getFavouriteProducts().value ?: listOf())
     val favorites :LiveData<List<ProductEntity>> = favoritesLiveData
     var customerData : CustomerData? = null
     var currentError : String? = null
     var signUPError : Error? = null
 
-    suspend fun refreshProducts() {
+    val bestSellingProductsTopFive = database.orangoDao.getSubBestSelling()
+    val offerProductsTopFive = database.orangoDao.getSubOffers()
+    val categoriesTopFive = database.orangoDao.getSubCategories()
+
+    val getProducts: (id: Int) -> ProductEntity = { id ->
+        database.orangoDao.getProductInfo(id)[0]
+    }
+
+    suspend fun refreshProducts(customerId: Int) {
         withContext(Dispatchers.IO) {
-            val productsList = Api.retrofitService.getAllProducts(customerId = 1)
+            val productsList = Api.retrofitService.getAllProducts(customerId = customerId)
             database.orangoDao.addProduct(productsList.products.asDatabaseModel())
         }
-
     }
+
+    suspend fun refreshCategories() {
+        withContext(Dispatchers.IO) {
+            val categoriesList = Api.retrofitService.getCategory()
+            database.orangoDao.insertCategories(categoriesList.categories.asDatabaseModel())
+        }
+    }
+
     suspend fun refreshFavourites(customerId : Int) {
         withContext(Dispatchers.IO) {
             val favouriteProductsResponse = Api.retrofitService.getFavouriteProducts(customerId = customerId)

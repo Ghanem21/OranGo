@@ -6,13 +6,15 @@ import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.NoteEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
-import com.example.domain.useCase.GetProducts
 
 @Dao
 interface Dao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addProduct(products: List<ProductEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCategories(categories: List<CategoryEntity>)
 
     //getAllProducts
     @Query("SELECT * FROM products")
@@ -33,7 +35,7 @@ interface Dao {
 
     //return bestselling list in home page
     @Query("SELECT * FROM products ORDER BY sold_units DESC LIMIT 5")
-    fun getSubBestSelling(): List<ProductEntity>
+    fun getSubBestSelling(): LiveData<List<ProductEntity>>
 
     //return all bestselling list
     @Query("SELECT * FROM products ORDER BY sold_units DESC LIMIT 20")
@@ -43,7 +45,7 @@ interface Dao {
 
     //return offers list in home page
     @Query("SELECT * FROM products ORDER BY offerValue DESC LIMIT 3")
-    fun getSubOffers(): List<ProductEntity>
+    fun getSubOffers(): LiveData<List<ProductEntity>>
 
     //return all offers list
     @Query("SELECT * FROM products WHERE offerValue != 0")
@@ -65,7 +67,7 @@ interface Dao {
 
     // get categories list in home screen
     @Query("SELECT * FROM categories LIMIT 5")
-    fun getSubCategories(): List<CategoryEntity>
+    fun getSubCategories(): LiveData<List<CategoryEntity>>
 
 
     // get all list of notes
