@@ -18,6 +18,18 @@ class RepoImpl (private val database: OranGoDataBase) {
     var currentError : String? = null
     var signUPError : Error? = null
 
+    val getProducts: suspend (id: Int) -> ProductEntity = { id ->
+        withContext(Dispatchers.IO) {
+            database.orangoDao.getProductInfo(id)[0]
+        }
+    }
+
+    val getSimilarProducts: suspend (categoryId: Int) -> LiveData<List<ProductEntity>> = { categoryId ->
+        withContext(Dispatchers.IO) {
+            database.orangoDao.getSimilarProducts(categoryId)
+        }
+    }
+
     suspend fun refreshProducts() {
         withContext(Dispatchers.IO) {
             val productsList = Api.retrofitService.getAllProducts(customerId = 1)
