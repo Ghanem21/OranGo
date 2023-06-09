@@ -26,11 +26,11 @@ interface Dao {
 
     //get similar products in product info page
     @Query("SELECT * FROM products WHERE categoryId = :categoryId LIMIT 10")
-    fun getSimilarProducts(categoryId: Int): List<ProductEntity>
+    fun getSimilarProducts(categoryId: Int): LiveData<List<ProductEntity>>
 
     // get products list by category id in categories screen
     @Query("SELECT * FROM products WHERE categoryId = :categoryId")
-    fun getProductsByCategoryId(categoryId: Int): List<ProductEntity>
+    fun getProductsByCategoryId(categoryId: Int): LiveData<List<ProductEntity>>
 
 
     //return bestselling list in home page
