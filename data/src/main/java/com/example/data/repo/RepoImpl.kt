@@ -8,6 +8,7 @@ import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.asDatabaseModel
 import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.example.domain.entity.json.auth.signUp.Error
+import com.example.domain.entity.json.feedback.AddFeedbackResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -17,6 +18,12 @@ class RepoImpl (private val database: OranGoDataBase) {
     var customerData : CustomerData? = null
     var currentError : String? = null
     var signUPError : Error? = null
+
+    val sendFeedback: suspend (customerId : Int,message : String) -> AddFeedbackResponse = {customerId,message ->
+        withContext(Dispatchers.IO){
+            Api.retrofitService.addFeedback(customerId,message)
+        }
+    }
 
     suspend fun refreshProducts() {
         withContext(Dispatchers.IO) {
