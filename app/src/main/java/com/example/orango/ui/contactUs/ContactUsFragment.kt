@@ -1,32 +1,30 @@
 package com.example.orango.ui.contactUs
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.orango.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.orango.databinding.FragmentContactUsBinding
 
 class ContactUsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ContactUsFragment()
-    }
-
-    private lateinit var viewModel: ContactUsViewModel
-
+    private val viewModel: ContactUsViewModel by viewModels()
+    private lateinit var binding: FragmentContactUsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_contact_us, container, false)
+    ): View {
+        binding = FragmentContactUsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ContactUsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.sendButton.setOnClickListener {
+            viewModel.sendFeedback(binding.messageEditText.text.toString())
+        }
     }
 
 }
