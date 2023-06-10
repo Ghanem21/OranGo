@@ -1,32 +1,32 @@
 package com.example.orango.ui.point
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.orango.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.orango.databinding.FragmentPointBinding
 
 class PointFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = PointFragment()
-    }
-
-    private lateinit var viewModel: PointViewModel
+    private val viewModel: PointViewModel by viewModels()
+    private lateinit var binding: FragmentPointBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_point, container, false)
+    ): View {
+        binding = FragmentPointBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PointViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.points.observe(viewLifecycleOwner){ points->
+            binding.numPoints.text = points.toString()
+            binding.numMoney.text = (points / 10f).toString()
+        }
     }
 
 }

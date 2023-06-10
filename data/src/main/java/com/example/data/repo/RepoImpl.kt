@@ -18,6 +18,12 @@ class RepoImpl (private val database: OranGoDataBase) {
     var currentError : String? = null
     var signUPError : Error? = null
 
+    val getNumberOfPoints : suspend(customerId : Int) -> Int = {customerId->
+        withContext(Dispatchers.IO){
+            Api.retrofitService.getPoints(customerId).points
+        }
+    }
+
     suspend fun refreshProducts() {
         withContext(Dispatchers.IO) {
             val productsList = Api.retrofitService.getAllProducts(customerId = 1)
