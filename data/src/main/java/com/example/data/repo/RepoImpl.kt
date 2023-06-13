@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.data.remote.Api
 import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
+import com.example.data.roomDB.entities.ReceiptEntity
 import com.example.data.roomDB.entities.asDatabaseModel
 import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.example.domain.entity.json.auth.signUp.Error
@@ -17,6 +18,12 @@ class RepoImpl (private val database: OranGoDataBase) {
     var customerData : CustomerData? = null
     var currentError : String? = null
     var signUPError : Error? = null
+
+    val getReceiptHistory : suspend (customerId:Int) -> List<ReceiptEntity> = {customerId ->
+        withContext(Dispatchers.IO){
+            Api.retrofitService.getCustomerReceipt(customerId).receipts.asDatabaseModel()
+        }
+    }
 
     suspend fun refreshProducts() {
         withContext(Dispatchers.IO) {
