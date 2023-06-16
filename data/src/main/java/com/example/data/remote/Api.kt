@@ -14,7 +14,7 @@ private const val BASE_URL_ADMIN_PANEL =
 
 //base url of AI
 private const val BASE_URL_AI_MODEL =
-    "https://775d-41-235-222-70.ngrok-free.app/"
+    "https://9c44-105-41-218-121.ngrok-free.app/"
 
 //moshi build which we will use to convert json to object kotlin
 private val moshi = Moshi.Builder()

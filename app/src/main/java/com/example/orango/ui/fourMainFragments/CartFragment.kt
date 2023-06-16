@@ -102,10 +102,19 @@ class CartFragment : Fragment() {
                     imageCapture.takePicture(outputFileOptions, cameraExecutor, object : ImageCapture.OnImageSavedCallback {
                         override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                             lifecycleScope.launch {
-                                withContext(Dispatchers.IO) {
-                                    Log.d("TAGGG", "${outputFileResults}")
-                                    val aiResponse = Api.retrofitServiceForAI.detectProduct(convertImageFileToMultimediaPart(imageFile))
-                                    Log.d("TAGGG", "${aiResponse[0].key} => ${aiResponse[0].value}")
+                                try {
+                                    withContext(Dispatchers.IO) {
+                                        Log.d("TAGGG", "${imageFile}")
+                                        val aiResponse = Api.retrofitServiceForAI.detectProduct(
+                                            convertImageFileToMultimediaPart(imageFile)
+                                        )
+                                        Log.d(
+                                            "TAGGG",
+                                            "${aiResponse.items} => ${aiResponse.quantities}"
+                                        )
+                                    }
+                                }catch (ex:Exception){
+                                    ex.printStackTrace()
                                 }
                             }
                         }
@@ -116,7 +125,7 @@ class CartFragment : Fragment() {
                     })
                 }
 
-                delay(3000) // Capture every 3 seconds
+                delay(5000) // Capture every 3 seconds
             }
         }
     }
