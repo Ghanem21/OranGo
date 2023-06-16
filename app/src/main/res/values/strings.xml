@@ -125,4 +125,7 @@
     <string name="back_to_home">Back to Home</string>
     <string name="receipt_items">Receipt Items</string>
     <string name="scan">Scan</string>
+    <string name="set_budget">Set Budget</string>
+    <string name="add_manual">Add Manual</string>
+
 </resources>

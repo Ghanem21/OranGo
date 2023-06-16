@@ -108,10 +108,7 @@ class CartFragment : Fragment() {
                                         val aiResponse = Api.retrofitServiceForAI.detectProduct(
                                             convertImageFileToMultimediaPart(imageFile)
                                         )
-                                        Log.d(
-                                            "TAGGG",
-                                            "${aiResponse.items} => ${aiResponse.quantities}"
-                                        )
+                                        Log.d("TAGGG", "${aiResponse.items} => ${aiResponse.quantities}")
                                     }
                                 }catch (ex:Exception){
                                     ex.printStackTrace()
