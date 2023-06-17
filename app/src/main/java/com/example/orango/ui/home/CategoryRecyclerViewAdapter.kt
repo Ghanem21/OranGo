@@ -2,6 +2,7 @@ package com.example.orango.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,8 +23,8 @@ class CategoryRecyclerViewAdapter(private val categories : MutableList<CategoryE
                 .into(binding.categoryImg)
 
             binding.root.setOnClickListener {
-                val action = HomeFragmentDirections.actionHomeFragmentToCategoriesScreenFragment(categoryId = category.id)
-                binding.root.findNavController().navigate(action)
+                val navController = binding.root.findNavController()
+                navController.navigate(R.id.productFragment, bundleOf("categoryId" to category.id))
             }
         }
     }
