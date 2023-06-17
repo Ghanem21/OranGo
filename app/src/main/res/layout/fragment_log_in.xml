@@ -73,6 +73,7 @@
         android:layout_height="wrap_content"
         android:text="@string/forget_password"
         android:textColor="?attr/colorPrimary"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/logInButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -86,8 +87,8 @@
         android:paddingHorizontal="@dimen/_26sdp"
         android:text="@string/login"
         android:textAllCaps="false"
-        android:textSize="@dimen/_21ssp"
-        app:cornerRadius="@dimen/_10ssp"
+        android:textSize="@dimen/_18ssp"
+        app:cornerRadius="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@+id/or"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +96,7 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="166dp"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_3sdp"
         android:background="@drawable/dash_line"
         app:layout_constraintBottom_toBottomOf="@+id/or"
@@ -118,7 +119,7 @@
 
     <View
         android:id="@+id/view2"
-        android:layout_width="166dp"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_3sdp"
         android:background="@drawable/dash_line"
         app:layout_constraintBottom_toBottomOf="@+id/or"
@@ -158,6 +159,8 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:src="@drawable/facebook"
+        android:padding="@dimen/_8sdp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -170,6 +173,7 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:src="@drawable/google"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/noAccountTextView"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintHorizontal_bias="0.5"

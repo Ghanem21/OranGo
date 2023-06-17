@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.example.orango.util.VIEWPAGER_CURRENTPOSITION
 
 class OnBoardingViewModel : ViewModel() {
-    // TODO: Implement the
     private val _currentPosition = MutableLiveData<Int>()
     val currentPosition : LiveData<Int> = _currentPosition
 

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.orango.R
@@ -15,10 +15,8 @@ import com.example.orango.util.ViewPager
 
 class OnBoardingFragment : Fragment() {
 
-
-    private val viewModel by lazy {
-        ViewModelProvider(this)[OnBoardingViewModel::class.java]
-    }
+    private val viewModel: OnBoardingViewModel by viewModels()
+    private lateinit var binding: FragmentOnBoardingBinding
     private val onBoardingViewPager by lazy {
         ViewPager(
             DataManager.onBoardingFragmentList,
@@ -27,17 +25,12 @@ class OnBoardingFragment : Fragment() {
         )
     }
 
-    private var _binding: FragmentOnBoardingBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-         _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
+        binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,7 +39,7 @@ class OnBoardingFragment : Fragment() {
 
         initViewPager()
 
-        if(viewModel.isNewlyCreated) {
+        if (viewModel.isNewlyCreated) {
             savedInstanceState?.let {
                 viewModel.restoreState(it)
             }
@@ -54,7 +47,7 @@ class OnBoardingFragment : Fragment() {
 
         binding.indicator.setViewPager(binding.onBoardingFragments)
 
-        binding.nextButton.setOnClickListener{
+        binding.nextButton.setOnClickListener {
             viewModel.inc()
         }
 
@@ -70,25 +63,25 @@ class OnBoardingFragment : Fragment() {
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if(position != viewModel.currentPosition.value)
+                if (position != viewModel.currentPosition.value)
                     viewModel.setCurrentPosition(position)
             }
         })
 
-        viewModel.currentPosition.observe(viewLifecycleOwner){
+        viewModel.currentPosition.observe(viewLifecycleOwner) {
             handleCurrentPosition(it)
         }
     }
 
-    private fun handleCurrentPosition(it: Int) {
-        if (it != 4)
-            binding.onBoardingFragments.currentItem = it
-        when (it) {
+    private fun handleCurrentPosition(position: Int) {
+        binding.onBoardingFragments.setCurrentItem(position, true)
+        when (position) {
             0 -> binding.backButton.visibility = View.INVISIBLE
             4 -> {
                 findNavController().navigate(R.id.action_onBoardingFragment_to_logInFragment)
                 viewModel.setCurrentPosition(binding.onBoardingFragments.currentItem)
             }
+
             else -> binding.backButton.visibility = View.VISIBLE
         }
     }
@@ -97,17 +90,13 @@ class OnBoardingFragment : Fragment() {
         super.onSaveInstanceState(outState)
         viewModel.saveState(outState)
     }
-    private fun initViewPager(){
-        val adapter = onBoardingViewPager
-        binding.onBoardingFragments.adapter = adapter
+
+    private fun initViewPager() {
+        binding.onBoardingFragments.adapter = onBoardingViewPager
     }
 
     override fun onPause() {
         binding.onBoardingFragments.adapter = null
         super.onPause()
-    }
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 }

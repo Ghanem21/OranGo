@@ -28,12 +28,19 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bindButtons()
 
-        viewModel.phoneNumberError.observe(viewLifecycleOwner){error->
+        viewModel.phoneNumberError.observe(viewLifecycleOwner) { error ->
+            binding.phoneTextInputLayout.error = error
+        }
+
+        viewModel.emailError.observe(viewLifecycleOwner) { error ->
             binding.emailTextInputLayout.error = error
         }
 
-        viewModel.emailError.observe(viewLifecycleOwner){error->
-            binding.emailTextInputLayout.error = error
+        viewModel.signUpSucceed.observe(viewLifecycleOwner){signUpSucceed ->
+            if(signUpSucceed){
+                findNavController().navigate(R.id.action_signUpFragment_to_logInFragment)
+                viewModel.signUpDone()
+            }
         }
     }
 
@@ -48,7 +55,7 @@ class SignUpFragment : Fragment() {
                 binding.usernameTextInputLayout.error =
                     "Username must be at least 3 characters long"
                 return@setOnClickListener
-            }else{
+            } else {
                 binding.usernameTextInputLayout.error = null
             }
 
@@ -56,23 +63,25 @@ class SignUpFragment : Fragment() {
             if (!viewModel.validateEmail(email)) {
                 binding.emailTextInputLayout.error = "Please enter a valid email address"
                 return@setOnClickListener
-            }else{
+            } else {
                 binding.emailTextInputLayout.error = null
             }
 
             val phoneNumber = binding.phoneEditText.text.toString().trim()
             if (!viewModel.validatePhoneNumber(phoneNumber)) {
-                binding.phoneTextInputLayout.error = "Phone number must be at least 11 characters long"
+                binding.phoneTextInputLayout.error =
+                    "Phone number must be at least 11 characters long"
                 return@setOnClickListener
-            }else{
+            } else {
                 binding.phoneTextInputLayout.error = null
             }
 
             val password = binding.passwordEditText.text.toString().trim()
             if (!viewModel.validatePassword(password)) {
-                binding.passwordTextInputLayout.error = "Password must be at least 8 characters long"
+                binding.passwordTextInputLayout.error =
+                    "Password must be at least 8 characters long"
                 return@setOnClickListener
-            }else{
+            } else {
                 binding.passwordTextInputLayout.error = null
             }
 

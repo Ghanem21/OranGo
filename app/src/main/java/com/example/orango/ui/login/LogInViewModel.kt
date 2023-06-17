@@ -1,19 +1,21 @@
 package com.example.orango.ui.login
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.data.repo.RepoImpl
 import com.example.data.roomDB.OranGoDataBase
-import com.example.domain.entity.json.auth.logIn.CustomerData
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class LogInViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val database = OranGoDataBase.getInstance(application.applicationContext)
-    private val repo = RepoImpl(database)
+    private val repo : RepoImpl
 
     private val messageLiveData = MutableLiveData<String>()
     val message: LiveData<String> = messageLiveData
@@ -21,8 +23,23 @@ class LogInViewModel(application: Application) : AndroidViewModel(application) {
     private val showToastFlagLiveData = MutableLiveData<Boolean>()
     val showToastFlag: LiveData<Boolean> = showToastFlagLiveData
 
-    private val customerDataLiveData = MutableLiveData<CustomerData>()
-    val customerData: LiveData<CustomerData> = customerDataLiveData
+    private val logInSucceedLiveData = MutableLiveData<Boolean>()
+    val logInSucceed: LiveData<Boolean> = logInSucceedLiveData
+
+    private val sharedPreferences: SharedPreferences by lazy {
+        application.getSharedPreferences(
+            "my_shared_preferences",
+            Context.MODE_PRIVATE
+        )
+    }
+
+    private val editor: SharedPreferences.Editor by lazy { sharedPreferences.edit() }
+
+    init {
+        val database = OranGoDataBase.getInstance(application.applicationContext)
+        repo = RepoImpl(database)
+    }
+
     fun validateEmail(email: String): Boolean {
         if (email.isEmpty()) {
             return false
@@ -37,10 +54,7 @@ class LogInViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun validatePassword(password: String): Boolean {
-        if (password.length < 8) {
-            return false
-        }
-        return true
+        return password.length >= 8
     }
 
     fun logIn(email: String, password: String) {
@@ -54,9 +68,12 @@ class LogInViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 repo.customerData?.let { customerData ->
-                    this@LogInViewModel.customerDataLiveData.value = customerData
+                    editor.putString("customer_data", Gson().toJson(customerData))
+                    editor.apply()
+                    logInSucceedLiveData.value = true
                 }
             } catch (ex: Exception) {
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_LONG).show()
                 ex.printStackTrace()
             }
         }
@@ -68,5 +85,9 @@ class LogInViewModel(application: Application) : AndroidViewModel(application) {
 
     fun showToastDone() {
         showToastFlagLiveData.value = false
+    }
+
+    fun logInDone() {
+        logInSucceedLiveData.value = false
     }
 }
