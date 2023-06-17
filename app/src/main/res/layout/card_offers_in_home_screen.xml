@@ -1,102 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/_14sdp"
-    app:cardElevation="@dimen/_4sdp"
+    android:layout_gravity="center_horizontal"
     android:clipToPadding="true"
-    android:layout_gravity="center_horizontal">
+    app:cardCornerRadius="@dimen/_14sdp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="@dimen/_4sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
-        <ImageView
-            android:id="@+id/yellow_right_circle"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="fitEnd"
-            android:src="@drawable/circle_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/offer_percentage"
             style="@style/TitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/_32sdp"
             android:text="25%"
-            android:textSize="@dimen/_22sdp"
+            android:textSize="@dimen/_22ssp"
             app:layout_constraintBottom_toTopOf="@+id/product_name_offer_card"
+            app:layout_constraintEnd_toStartOf="@+id/noAccountTextView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/yellow_right_circle" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
 
         <TextView
             android:id="@+id/noAccountTextView"
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:text="off"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_15ssp"
             app:layout_constraintBottom_toBottomOf="@+id/offer_percentage"
-            app:layout_constraintStart_toEndOf="@+id/offer_percentage" />
+            app:layout_constraintEnd_toStartOf="@+id/product_img"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/offer_percentage"
+            app:layout_constraintTop_toTopOf="@+id/offer_percentage" />
 
         <TextView
             android:id="@+id/product_name_offer_card"
             style="@style/TextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:text="Organic Tomato"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_15ssp"
             app:layout_constraintBottom_toTopOf="@+id/price_before_dicount"
+            app:layout_constraintEnd_toStartOf="@+id/product_img"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/offer_percentage"
             app:layout_constraintTop_toBottomOf="@+id/offer_percentage" />
 
         <TextView
             android:id="@+id/price_before_dicount"
             style="@style/TextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:text="@string/product_price_before_discount"
             android:textColor="@color/light_gray"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintBottom_toTopOf="@+id/yellow_right_circle"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/price_after_dicount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/product_name_offer_card"
             app:layout_constraintTop_toBottomOf="@+id/product_name_offer_card" />
 
         <TextView
             android:id="@+id/price_after_dicount"
             style="@style/TextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="@string/product_price"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@+id/price_before_dicount"
+            app:layout_constraintEnd_toStartOf="@+id/product_img"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/price_before_dicount"
             app:layout_constraintTop_toTopOf="@+id/price_before_dicount" />
 
         <ImageView
             android:id="@+id/product_img"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:background="@drawable/circle_right"
             android:src="@drawable/tomato"
+            android:padding="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/product_name_offer_card"
             app:layout_constraintTop_toTopOf="parent" />
 

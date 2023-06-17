@@ -88,13 +88,14 @@
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/circleIndicator3"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:ci_drawable="@drawable/dark_dot"
-            app:ci_drawable_unselected="@drawable/dot"
+            app:ci_drawable="@drawable/selected_dot"
+            app:ci_drawable_unselected="@drawable/unselected_dot"
             app:ci_height="@dimen/_10sdp"
             app:ci_margin="@dimen/_5sdp"
             app:ci_width="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@+id/categoryText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

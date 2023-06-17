@@ -1,73 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_14sdp"
     app:cardElevation="@dimen/_4sdp"
-    app:cardUseCompatPadding="true"
-    android:clipToPadding="true"
-    >
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/_110sdp"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/yellow_top_circle"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/circle_top"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageView
             android:id="@+id/product_img_in_bestselling"
-            android:layout_width="@dimen/_90sdp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_90sdp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
+            android:background="@drawable/circle_top"
+            android:padding="@dimen/_8sdp"
             android:src="@drawable/tomato"
             app:layout_constraintBottom_toTopOf="@+id/product_name_in_bestselling"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/yellow_top_circle"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/product_name_in_bestselling"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="spread" />
 
         <TextView
             android:id="@+id/product_name_in_bestselling"
             style="@style/TextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginVertical="@dimen/_8sdp"
             android:text="Tomato"
-            android:textSize="@dimen/_13sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:textSize="@dimen/_13ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/yellow_top_circle"
-            app:layout_constraintStart_toStartOf="@+id/product_img_in_bestselling"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/product_price"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/product_img_in_bestselling" />
 
         <TextView
             android:id="@+id/product_price"
             style="@style/TextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:gravity="center"
             android:text="@string/product_price"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginEnd="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="@+id/product_name_in_bestselling"
-            app:layout_constraintEnd_toEndOf="@+id/product_img_in_bestselling"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/product_name_in_bestselling"
             app:layout_constraintTop_toTopOf="@+id/product_name_in_bestselling" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

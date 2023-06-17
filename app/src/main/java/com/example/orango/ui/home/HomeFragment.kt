@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.data.roomDB.entities.ProductEntity
@@ -21,23 +21,18 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-
-    private val productLayoutManager by lazy {
-        LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-    }
-
-    private val categoryLayoutManager by lazy {
-        LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-    }
+    private lateinit var binding: FragmentHomeBinding
 
     private val productBestSellingAdapter by lazy {
-        ProductRecyclerViewAdapter(viewModel.bestSellingProductsTopFive.value?.toMutableList() ?: mutableListOf(),1)
+        ProductRecyclerViewAdapter(
+            viewModel.bestSellingProductsTopFive.value?.toMutableList() ?: mutableListOf(), 1
+        )
     }
 
     private val categoryAdapter by lazy {
-        CategoryRecyclerViewAdapter(viewModel.categoriesTopFive.value?.toMutableList() ?: mutableListOf())
+        CategoryRecyclerViewAdapter(
+            viewModel.categoriesTopFive.value?.toMutableList() ?: mutableListOf()
+        )
     }
 
     private val offerViewPagerAdapter by lazy {
@@ -52,89 +47,121 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        populateBestSellingAdapter()
         initViewPager()
-        populateCategoryAdapter()
-        
-        viewModel.bestSellingProductsTopFive.observe(viewLifecycleOwner){ products->
+        setupAdapters()
+        observeData()
+
+
+        startAutoScroll()
+
+        setOnClickListeners()
+    }
+
+    private fun setupAdapters() {
+        binding.content.bestSellingRecyclerView.adapter = productBestSellingAdapter
+        binding.content.categoryRecycleView.adapter = categoryAdapter
+        try {
+            binding.content.offerViewPager.adapter = offerViewPagerAdapter
+            binding.content.circleIndicator3.setViewPager(binding.content.offerViewPager)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
+
+    private fun observeData() {
+        viewModel.bestSellingProductsTopFive.observe(viewLifecycleOwner) { products ->
             productBestSellingAdapter.updateList(products)
         }
 
-        viewModel.categoriesTopFive.observe(viewLifecycleOwner){ categories->
+        viewModel.categoriesTopFive.observe(viewLifecycleOwner) { categories ->
             categoryAdapter.updateList(categories)
         }
 
-        viewModel.offersTopFive.observe(viewLifecycleOwner){offers->
-            offerViewPagerAdapter.updateList(initOfferFragment(offers))
+        viewModel.offersTopFive.observe(viewLifecycleOwner) { offers ->
+            offerViewPagerAdapter.updateList(initOfferFragments(offers))
+            setupAdapters()
         }
 
-        viewModel.savedCustomerData.observe(viewLifecycleOwner){ userData ->
-            binding.headerLayout.usernameText.text = userData.user.user_name
+        viewModel.savedCustomerData.observe(viewLifecycleOwner) { userData ->
+            binding.headerLayout.usernameText.text = "Hi, ${userData.user.user_name}"
             Glide.with(requireContext())
                 .load(userData.user.image)
                 .centerCrop()
                 .apply(RequestOptions().override(1600, 1600).timeout(6000))
-                .placeholder(R.drawable.profile)
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.profile)
                 .into(binding.headerLayout.profileIcon)
         }
-
-        startAutoScroll()
     }
 
-    private fun initOfferFragment(offerProducts : List<ProductEntity>): MutableList<Fragment> {
-        val offerFragmentList = mutableListOf<Fragment>()
-        for (product in offerProducts){
-            val bundle = Bundle()
-
-            bundle.putInt(PRODUCT_ID,product.id)
-
-            val fragment = OfferViewPager()
-            fragment.arguments = bundle
-
-            offerFragmentList.add(fragment)
+    private fun initViewPager() {
+        binding.content.offerViewPager.apply {
+            val currentItem = currentItem
+            val totalItems = adapter?.itemCount ?: 0
+            val nextItem = if (totalItems != 0) (currentItem + 1) % totalItems else 0
+            setCurrentItem(nextItem, true)
         }
-        return offerFragmentList
-    }
-
-    private fun populateBestSellingAdapter() {
-        binding.content.bestSellingRecyclerView.layoutManager = productLayoutManager
-        val adapter = productBestSellingAdapter
-        binding.content.bestSellingRecyclerView.adapter = adapter
-    }
-
-    private fun populateCategoryAdapter() {
-        binding.content.categoryRecycleView.layoutManager = categoryLayoutManager
-        val adapter = categoryAdapter
-        binding.content.categoryRecycleView.adapter = adapter
-    }
-
-    private fun initViewPager(){
-        val adapter = offerViewPagerAdapter
-        binding.content.offerViewPager.adapter = adapter
     }
 
     private fun startAutoScroll() {
         lifecycleScope.launch {
             while (true) {
-                delay(3000) // Change delay duration as needed
+                delay(3000)
                 val offerViewPager = binding.content.offerViewPager
                 val currentItem = offerViewPager.currentItem
                 val totalItems = offerViewPager.adapter?.itemCount ?: 0
-                val nextItem = (currentItem + 1) % totalItems
-                offerViewPager.currentItem = nextItem
+                val nextItem = if (totalItems != 0) (currentItem + 1) % totalItems else 0
+                offerViewPager.setCurrentItem(nextItem, true)
             }
         }
     }
 
+    private fun setOnClickListeners() {
+        binding.content.bestSeeAllText.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_bestSellingFragment)
+        }
 
-    override fun onDestroy() {
-        _binding = null
-        super.onDestroy()
+        binding.content.offerSeeAll.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_bestSellingFragment)
+        }
+
+        binding.content.categorySeeAll.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_categoriesScreenFragment)
+        }
+
+        binding.headerLayout.searchIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
+
+        binding.headerLayout.settingIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
+        }
+
+        binding.headerLayout.profileIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_editProfileFragment2)
+        }
+    }
+
+    private fun initOfferFragments(offerProducts: List<ProductEntity>): MutableList<Fragment> {
+        val offerFragmentList = mutableListOf<Fragment>()
+        for (product in offerProducts) {
+            val bundle = Bundle()
+            bundle.putInt(PRODUCT_ID, product.id)
+            val fragment = OfferViewPager()
+            fragment.arguments = bundle
+            offerFragmentList.add(fragment)
+        }
+        return offerFragmentList
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.content.offerViewPager.adapter = null
     }
 }
