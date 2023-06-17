@@ -15,7 +15,7 @@
 
     <string name="email_title">Receipt via email</string>
     <string name="email_body">You\'ll receive a confirmation email with order details</string>
-    <string name="orango"><font size="45"><b>Oran<font color='#FCC300'>Go</font></b></font>\n<font size="23">Save Time! Skip The Line!</font></string>
+    <string name="scan2go"><font size="45"><b>Scan<font color='#FCC300'>2</font>Go</b></font>\n<font size="23">Save Time! Skip The Line!</font></string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -128,5 +128,6 @@
     <string name="set_budget">Set Budget</string>
     <string name="add_manual">Add Manual</string>
     <string name="qty">Qty:</string>
+    <string name="scan_2_go">Scan2Go</string>
 
 </resources>
