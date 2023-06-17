@@ -12,32 +12,36 @@ import com.example.domain.entity.json.auth.signUp.Error
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RepoImpl (private val database: OranGoDataBase) {
-    private val favoritesLiveData = MutableLiveData(database.orangoDao.getFavouriteProducts().value ?: listOf())
-    val favorites :LiveData<List<ProductEntity>> = favoritesLiveData
-    var customerData : CustomerData? = null
-    var currentError : String? = null
-    private var signUpError : Error? = null
+class RepoImpl(private val database: OranGoDataBase) {
+    private val favoritesLiveData =
+        MutableLiveData(database.orangoDao.getFavouriteProducts().value ?: listOf())
+    val favorites: LiveData<List<ProductEntity>> = favoritesLiveData
+    var customerData: CustomerData? = null
+    var currentError: String? = null
+    private var signUpError: Error? = null
 
     val bestSellingProductsTopFive = database.orangoDao.getSubBestSelling()
     val offerProductsTopFive = database.orangoDao.getSubOffers()
     val categoriesTopFive = database.orangoDao.getSubCategories()
 
-    val getProducts: (id: Int) -> ProductEntity? = { id ->
-        database.orangoDao.getProductInfo(id).getOrNull(0)
+    val getProducts: suspend (id: Int) -> ProductEntity? = { id ->
+        withContext(Dispatchers.IO) {
+            database.orangoDao.getProductInfo(id).getOrNull(0)
+        }
     }
 
-    val getReceiptHistory : suspend (customerId:Int) -> List<ReceiptEntity> = { customerId ->
-        withContext(Dispatchers.IO){
+    val getReceiptHistory: suspend (customerId: Int) -> List<ReceiptEntity> = { customerId ->
+        withContext(Dispatchers.IO) {
             Api.retrofitService.getCustomerReceipt(customerId).receipts.asDatabaseModel()
         }
     }
 
-    val getSimilarProducts: suspend (categoryId: Int) -> LiveData<List<ProductEntity>> = { categoryId ->
-        withContext(Dispatchers.IO) {
-            database.orangoDao.getSimilarProducts(categoryId)
+    val getSimilarProducts: suspend (categoryId: Int) -> List<ProductEntity> =
+        { categoryId ->
+            withContext(Dispatchers.IO) {
+                database.orangoDao.getSimilarProducts(categoryId)
+            }
         }
-    }
 
     suspend fun refreshProducts(customerId: Int) {
         withContext(Dispatchers.IO) {
@@ -53,9 +57,10 @@ class RepoImpl (private val database: OranGoDataBase) {
         }
     }
 
-    suspend fun refreshFavourites(customerId : Int) {
+    suspend fun refreshFavourites(customerId: Int) {
         withContext(Dispatchers.IO) {
-            val favouriteProductsResponse = Api.retrofitService.getFavouriteProducts(customerId = customerId)
+            val favouriteProductsResponse =
+                Api.retrofitService.getFavouriteProducts(customerId = customerId)
             withContext(Dispatchers.Main) {
                 favoritesLiveData.value = favouriteProductsResponse.products.asDatabaseModel()
             }
@@ -82,13 +87,13 @@ class RepoImpl (private val database: OranGoDataBase) {
 
     val favorite: LiveData<List<ProductEntity>> = database.orangoDao.getFavouriteProducts()
 
-    suspend fun logIn(email : String , password : String) : Boolean{
-        return withContext(Dispatchers.IO){
+    suspend fun logIn(email: String, password: String): Boolean {
+        return withContext(Dispatchers.IO) {
             val logInResponse = Api.retrofitService.logIn(email, password)
             logInResponse.customerData?.let { customerData ->
                 this@RepoImpl.customerData = customerData
             }
-            logInResponse.error?.let {error ->
+            logInResponse.error?.let { error ->
                 currentError = error
             }
             return@withContext logInResponse.status

@@ -2,6 +2,7 @@ package com.example.orango.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -29,8 +30,8 @@ class ProductRecyclerViewAdapter(
                 .into(binding.productImgInBestselling)
 
             binding.root.setOnClickListener {
-                val action = HomeFragmentDirections.actionHomeFragmentToProductFragment(productId = product.id)
-                binding.root.findNavController().navigate(action)
+                val navController = binding.root.findNavController()
+                navController.navigate(R.id.productFragment, bundleOf("productId" to product.id))
             }
         }
     }
@@ -51,8 +52,8 @@ class ProductRecyclerViewAdapter(
                 .into(binding.productImg)
 
             binding.root.setOnClickListener {
-                val action = HomeFragmentDirections.actionHomeFragmentToProductFragment(productId = product.id)
-                binding.root.findNavController().navigate(action)
+                val navController = binding.root.findNavController()
+                navController.navigate(R.id.productFragment, bundleOf("productId" to product.id))
             }
         }
     }
