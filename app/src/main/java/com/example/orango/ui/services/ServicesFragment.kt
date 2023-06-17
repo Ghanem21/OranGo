@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.orango.data.DataManager
 import com.example.orango.databinding.FragmentServicesBinding
 import com.example.orango.ui.setting.SettingAndServiceAdapter
@@ -14,10 +13,6 @@ class ServicesFragment : Fragment() {
 
     private var _binding: FragmentServicesBinding? = null
     private val binding get() = _binding!!
-
-    private val linearLayoutManager by lazy {
-        LinearLayoutManager(requireContext())
-    }
 
     private val settingAndServiceAdapter by lazy {
         SettingAndServiceAdapter(DataManager.services)
@@ -38,7 +33,6 @@ class ServicesFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        binding.servicesList.layoutManager = linearLayoutManager
         binding.servicesList.adapter = settingAndServiceAdapter
     }
 }
