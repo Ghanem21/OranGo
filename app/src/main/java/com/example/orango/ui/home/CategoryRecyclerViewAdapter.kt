@@ -2,6 +2,7 @@ package com.example.orango.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -15,11 +16,15 @@ class CategoryRecyclerViewAdapter(private val categories : MutableList<CategoryE
             binding.categoryName.text = category.name
             Glide.with(binding.root.context)
                 .load(category.image)
-                .centerCrop()
-                .apply(RequestOptions().override(1600, 1600))
-                .placeholder(R.drawable.tomato)
-                .error(R.drawable.facebook)
+                .apply(RequestOptions().override(1600, 1600).timeout(6000))
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.broken_img)
                 .into(binding.categoryImg)
+
+            binding.root.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToCategoriesScreenFragment(categoryId = category.id)
+                binding.root.findNavController().navigate(action)
+            }
         }
     }
 

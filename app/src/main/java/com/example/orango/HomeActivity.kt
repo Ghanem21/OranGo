@@ -1,6 +1,7 @@
 package com.example.orango
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -32,5 +33,12 @@ class HomeActivity : AppCompatActivity() {
             )
         )
         navView.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (!appBarConfiguration.topLevelDestinations.contains(destination.id)) {
+                navView.visibility = View.GONE
+            } else {
+                navView.visibility = View.VISIBLE
+            }
+        }
     }
 }

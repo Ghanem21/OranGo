@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.data.remote.Api
 import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
+import com.example.data.roomDB.entities.ReceiptEntity
 import com.example.data.roomDB.entities.asDatabaseModel
 import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.example.domain.entity.json.auth.signUp.Error
@@ -16,17 +17,17 @@ class RepoImpl (private val database: OranGoDataBase) {
     val favorites :LiveData<List<ProductEntity>> = favoritesLiveData
     var customerData : CustomerData? = null
     var currentError : String? = null
-    var signUPError : Error? = null
+    private var signUpError : Error? = null
 
     val bestSellingProductsTopFive = database.orangoDao.getSubBestSelling()
     val offerProductsTopFive = database.orangoDao.getSubOffers()
     val categoriesTopFive = database.orangoDao.getSubCategories()
 
-    val getProducts: (id: Int) -> ProductEntity = { id ->
-        database.orangoDao.getProductInfo(id)[0]
+    val getProducts: (id: Int) -> ProductEntity? = { id ->
+        database.orangoDao.getProductInfo(id).getOrNull(0)
     }
 
-    val getReceiptHistory : suspend (customerId:Int) -> List<ReceiptEntity> = {customerId ->
+    val getReceiptHistory : suspend (customerId:Int) -> List<ReceiptEntity> = { customerId ->
         withContext(Dispatchers.IO){
             Api.retrofitService.getCustomerReceipt(customerId).receipts.asDatabaseModel()
         }
@@ -58,7 +59,7 @@ class RepoImpl (private val database: OranGoDataBase) {
     val products: LiveData<List<ProductEntity>> = database.orangoDao.getProducts()
 
 
-    suspend fun updatefavorites(product: ProductEntity) {
+    suspend fun updateFavorites(product: ProductEntity) {
         withContext(Dispatchers.IO) {
             database.orangoDao.setProductFavouriteState(product)
             if (product.liked == 1) Api.retrofitService.insertToFavourite(1, product.id)
@@ -97,7 +98,7 @@ class RepoImpl (private val database: OranGoDataBase) {
         return withContext(Dispatchers.IO) {
             val signUpResponse = Api.retrofitService.signUp(username, email, phoneNumber, password)
             signUpResponse.error?.let { error ->
-                signUPError = error
+                signUpError = error
             }
             return@withContext signUpResponse.status
         }

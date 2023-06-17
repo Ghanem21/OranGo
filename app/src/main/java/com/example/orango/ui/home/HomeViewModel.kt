@@ -2,7 +2,7 @@ package com.example.orango.ui.home
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,10 +14,18 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
-    private val database = OranGoDataBase.getInstance(application.applicationContext)
-    private val repo = RepoImpl(database)
+    private val repo :RepoImpl
+    init {
+        val database = OranGoDataBase.getInstance(application.applicationContext)
+        repo = RepoImpl(database)
+    }
+
     private val savedCustomerDataLiveData = MutableLiveData<CustomerData>()
     val savedCustomerData : LiveData<CustomerData> = savedCustomerDataLiveData
+
+    val bestSellingProductsTopFive = repo.bestSellingProductsTopFive
+    val categoriesTopFive = repo.categoriesTopFive
+    val offersTopFive = repo.offerProductsTopFive
 
     private val sharedPreferences by lazy {
         application.applicationContext.getSharedPreferences(
@@ -33,9 +41,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     val customerDataJson = sharedPreferences.getString("customer_data", null)
                     savedCustomerDataLiveData.value =
                         Gson().fromJson(customerDataJson, CustomerData::class.java)
-                    Log.d("logIn", "onViewCreated: $savedCustomerData")
                     repo.refreshProducts(savedCustomerDataLiveData.value!!.user.id )
                 } catch (ex: Exception) {
+                    Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
                     ex.printStackTrace()
                 }
             }
@@ -44,14 +52,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 try {
                     repo.refreshCategories()
                 }catch (ex :Exception){
+                    Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
                     ex.printStackTrace()
                 }
             }
         }
     }
-
-    val bestSellingProductsTopFive = repo.bestSellingProductsTopFive
-    val categoriesTopFive = repo.categoriesTopFive
-    val offersTopFive = repo.offerProductsTopFive
-
 }

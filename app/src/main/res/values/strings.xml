@@ -112,7 +112,7 @@
     <string name="yy">YY</string>
     <string name="mm">MM</string>
     <string name="fruits">Fruits</string>
-    <string name="product_price_before_discount">%1$d LE</string>
+    <string name="product_price_before_discount">%s L.E</string>
     <string name="checkout">Checkout</string>
     <string name="you_re_all_set_n_just_return_your_cart_amp_we_ll_email_your_receipt"><b>You\'re all set</b>\nJust return your cart &amp; we\'ll email your receipt</string>
     <string name="view_receipt">View Receipt</string>

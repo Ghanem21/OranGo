@@ -2,6 +2,7 @@ package com.example.orango.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -19,13 +20,18 @@ class ProductRecyclerViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductEntity) {
             binding.productNameInBestselling.text = product.productName
-            binding.productPrice.text = product.price.toString()
+            binding.productPrice.text = product.price.toString() + " L.E"
             Glide.with(binding.root.context)
                 .load(product.image)
-                .centerCrop()
-                .apply(RequestOptions().override(1600, 1600))
-                .placeholder(R.drawable.tomato)
+                .apply(RequestOptions().override(1600, 1600).timeout(6000))
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.broken_img)
                 .into(binding.productImgInBestselling)
+
+            binding.root.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToProductFragment(productId = product.id)
+                binding.root.findNavController().navigate(action)
+            }
         }
     }
 
@@ -35,13 +41,19 @@ class ProductRecyclerViewAdapter(
             binding.favouriteIcon.setImageResource(R.drawable.heart_icon)
             binding.productName.text = product.productName
             binding.productLocation.text = product.location
-            binding.priceBeforeDicount.text = product.price.toString()
-            binding.priceAfterDicount.text = (product.price - (product.price * (product.offerValue / 100f))).toString()
+            binding.priceBeforeDicount.text = (product.price - (product.price * (product.offerValue / 100f))).toString()
+            binding.priceAfterDicount.text =  product.price.toString() +" L.E"
             Glide.with(binding.root.context)
                 .load(product.image)
-                .centerCrop()
-                .placeholder(R.drawable.tomato)
+                .apply(RequestOptions().override(1600, 1600).timeout(6000))
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.broken_img)
                 .into(binding.productImg)
+
+            binding.root.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToProductFragment(productId = product.id)
+                binding.root.findNavController().navigate(action)
+            }
         }
     }
 

@@ -16,7 +16,7 @@ data class ProductEntity(
     val price: Int,
     val productName: String,
     val quantity: Int,
-    val sold_units: Int
+    val sold_units: Int?
 )
 
 fun List<ProductEntity>.asJsonModel(): List<ProductJson> {
