@@ -21,6 +21,9 @@ interface Dao {
     @Query("SELECT * FROM products WHERE id = :id")
     fun getProductInfo(id: Int): List<ProductEntity>
 
+    @Query("SELECT * FROM products WHERE productName = :productName")
+    fun getProductByName(productName: String): List<ProductEntity>
+
     //get similar products in product info page
     @Query("SELECT * FROM products WHERE categoryId = :categoryId LIMIT 10")
     fun getSimilarProducts(categoryId: Int): List<ProductEntity>

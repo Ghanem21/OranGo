@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_8sdp"
-    tools:context=".ui.fourMainFragments.CartFragment">
+    tools:context=".ui.cart.CartFragment">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/viewFinder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/set_budget"
@@ -51,24 +51,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/servicesList"
+        app:layout_constraintBottom_toTopOf="@+id/productRecycleView"
         app:layout_constraintEnd_toEndOf="@+id/add_manual"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/set_budget"
         app:layout_constraintTop_toBottomOf="@+id/set_budget" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/servicesList"
+        android:id="@+id/productRecycleView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:clipToPadding="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/include55"
         app:layout_constraintEnd_toEndOf="@+id/include"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/include"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        tools:listitem="@layout/card_in_cart_screen" />
+        tools:listitem="@layout/item_cart_card" />
 
     <include
         android:id="@+id/include55"
@@ -76,9 +77,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/servicesList"
-        app:layout_constraintStart_toStartOf="@+id/servicesList"
-        app:layout_constraintTop_toBottomOf="@+id/servicesList" />
+        app:layout_constraintEnd_toEndOf="@+id/productRecycleView"
+        app:layout_constraintStart_toStartOf="@+id/productRecycleView"
+        app:layout_constraintTop_toBottomOf="@+id/productRecycleView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
