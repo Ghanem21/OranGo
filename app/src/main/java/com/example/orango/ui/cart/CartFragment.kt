@@ -1,13 +1,13 @@
-package com.example.orango.ui.fourMainFragments
+package com.example.orango.ui.cart
 
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -16,17 +16,13 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.data.remote.Api
 import com.example.orango.R
 import com.example.orango.databinding.FragmentCartBinding
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -39,22 +35,56 @@ class CartFragment : Fragment() {
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
 
-    private lateinit var binding : FragmentCartBinding
+    private lateinit var binding: FragmentCartBinding
+    private val viewModel: CartViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    private val cartAdapter by lazy {
+        CartAdapter(mutableListOf(), mutableListOf())
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAdapter()
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
         } else {
-            startCamera()
+            lifecycleScope.launch {
+                startCamera()
+            }
+        }
+
+        viewModel.productsLive.observe(viewLifecycleOwner) { products ->
+            try {
+                Toast.makeText(requireContext(),products.size.toString(),Toast.LENGTH_SHORT).show()
+                cartAdapter.updateList(
+                    products.toMutableList(),
+                    viewModel.quantitiesLive.value.orEmpty().toMutableList()
+                )
+                viewModel.products.clear()
+                viewModel.quantities.clear()
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
         }
     }
 
@@ -99,33 +129,29 @@ class CartFragment : Fragment() {
                 val outputFileOptions = ImageCapture.OutputFileOptions.Builder(imageFile).build()
 
                 withContext(Dispatchers.IO) {
-                    imageCapture.takePicture(outputFileOptions, cameraExecutor, object : ImageCapture.OnImageSavedCallback {
-                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                            lifecycleScope.launch {
-                                try {
-                                    withContext(Dispatchers.IO) {
-                                        Log.d("TAGGG", "${imageFile}")
-                                        val aiResponse = Api.retrofitServiceForAI.detectProduct(
-                                            convertImageFileToMultimediaPart(imageFile)
-                                        )
-                                        Log.d("TAGGG", "${aiResponse.items} => ${aiResponse.quantities}")
+                    imageCapture.takePicture(
+                        outputFileOptions,
+                        cameraExecutor,
+                        object : ImageCapture.OnImageSavedCallback {
+                            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                                lifecycleScope.launch {
+                                    try {
+                                        viewModel.detectProduct(imageFile)
+                                    } catch (ex: Exception) {
+                                        ex.printStackTrace()
                                     }
-                                }catch (ex:Exception){
-                                    ex.printStackTrace()
                                 }
                             }
-                        }
 
-                        override fun onError(exception: ImageCaptureException) {
-                            // Handle error
-                        }
-                    })
+                            override fun onError(exception: ImageCaptureException) {
+                                // Handle error
+                            }
+                        })
                 }
-
-                delay(5000) // Capture every 3 seconds
             }
         }
     }
+
 
     private fun createImageFile(outputDirectory: File): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
@@ -141,13 +167,8 @@ class CartFragment : Fragment() {
             mediaDir else requireActivity().filesDir
     }
 
-
-    fun convertImageFileToMultimediaPart(imageFile: File): MultipartBody.Part {
-        // Create a RequestBody object with the image file
-        val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
-
-        // Create a MultipartBody.Part using the RequestBody
-        return MultipartBody.Part.createFormData("image", imageFile.name, requestBody)
+    private fun setupAdapter() {
+        binding.productRecycleView.adapter = cartAdapter
     }
 
     override fun onDestroyView() {

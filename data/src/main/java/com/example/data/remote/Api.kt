@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 //base url of website
 private const val BASE_URL_ADMIN_PANEL =
-    "https://3a63-105-41-189-247.ngrok-free.app/api/"
+    "https://8f5b-105-41-218-121.ngrok-free.app/api/"
 
 //base url of AI
 private const val BASE_URL_AI_MODEL =

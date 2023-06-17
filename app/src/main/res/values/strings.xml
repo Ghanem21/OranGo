@@ -127,5 +127,6 @@
     <string name="scan">Scan</string>
     <string name="set_budget">Set Budget</string>
     <string name="add_manual">Add Manual</string>
+    <string name="qty">Qty:</string>
 
 </resources>

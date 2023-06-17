@@ -6,7 +6,6 @@ import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.NoteEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
-import com.example.domain.useCase.GetProducts
 
 @Dao
 interface Dao {
@@ -21,6 +20,9 @@ interface Dao {
     //get product information page
     @Query("SELECT * FROM products WHERE id = :id")
     fun getProductInfo(id: Int): List<ProductEntity>
+
+    @Query("SELECT * FROM products WHERE productName = :productName")
+    fun getProductByName(productName: String): List<ProductEntity>
 
     //get similar products in product info page
     @Query("SELECT * FROM products WHERE categoryId = :categoryId LIMIT 10")
