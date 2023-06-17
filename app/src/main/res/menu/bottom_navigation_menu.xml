@@ -8,26 +8,20 @@
         android:title="@string/home"/>
 
     <item
-        android:id="@+id/recommendedFragment"
+        android:id="@+id/servicesFragment"
         android:enabled="true"
-        android:icon="@drawable/logo"
-        android:title="@string/recommended"/>
+        android:icon="@drawable/services"
+        android:title="@string/services"/>
 
     <item
-        android:id="@+id/scanFragment"
-        android:enabled="false"
-        android:icon="@drawable/logo"
-        android:title="@string/scan"/>
+        android:id="@+id/recommendedFragment"
+        android:enabled="true"
+        android:icon="@drawable/recommended"
+        android:title="@string/recommended"/>
 
     <item
         android:id="@+id/cartFragment"
         android:enabled="true"
         android:icon="@drawable/cart"
         android:title="@string/cart"/>
-
-    <item
-        android:id="@+id/servicesFragment"
-        android:enabled="true"
-        android:icon="@drawable/services"
-        android:title="@string/services"/>
 </menu>
