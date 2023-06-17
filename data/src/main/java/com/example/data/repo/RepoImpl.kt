@@ -33,6 +33,12 @@ class RepoImpl (private val database: OranGoDataBase) {
         }
     }
 
+    val getSimilarProducts: suspend (categoryId: Int) -> LiveData<List<ProductEntity>> = { categoryId ->
+        withContext(Dispatchers.IO) {
+            database.orangoDao.getSimilarProducts(categoryId)
+        }
+    }
+
     suspend fun refreshProducts(customerId: Int) {
         withContext(Dispatchers.IO) {
             val productsList = Api.retrofitService.getAllProducts(customerId = customerId)
