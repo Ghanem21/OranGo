@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.orango.R
 import com.example.orango.databinding.CardBestSellingInHomeScreenBinding
@@ -17,7 +18,14 @@ class ProductRecyclerViewAdapter(
     inner class ProductViewHolder(private val binding: CardBestSellingInHomeScreenBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductEntity) {
-
+            binding.productNameInBestselling.text = product.productName
+            binding.productPrice.text = product.price.toString()
+            Glide.with(binding.root.context)
+                .load(product.image)
+                .centerCrop()
+                .apply(RequestOptions().override(1600, 1600))
+                .placeholder(R.drawable.tomato)
+                .into(binding.productImgInBestselling)
         }
     }
 
