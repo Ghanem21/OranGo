@@ -21,12 +21,14 @@ object DataManager {
     val offerFragmentList = ArrayList<Fragment>()
 
     var services = mutableListOf<SettingAndServicesOption>()
+    var settings = mutableListOf<SettingAndServicesOption>()
 
     init {
         initOnBoardingData()
         initOnBoardingFragmentList()
         initOfferFragment()
         services.addAll(intiServiceList())
+        settings.addAll(intiSettingList())
     }
 
     private fun initOnBoardingData() {
@@ -78,5 +80,17 @@ object DataManager {
         val favourites = SettingAndServicesOption(R.drawable.baseline_filled_heart_24,"Favourites")
 
         return listOf(suggestedMeals,favourites)
+    }
+
+    private fun intiSettingList(): List<SettingAndServicesOption> {
+        val points = SettingAndServicesOption(R.drawable.stars_points,"Points")
+        val receiptHistory = SettingAndServicesOption(R.drawable.history,"Receipts History")
+        val paymentDetails = SettingAndServicesOption(R.drawable.payment_card,"Payment Details")
+        val contactUs = SettingAndServicesOption(R.drawable.contact,"Contact Us")
+        val aboutUs = SettingAndServicesOption(R.drawable.about,"About Us")
+        val logout = SettingAndServicesOption(R.drawable.logout,"Logout")
+        val deleteAccount = SettingAndServicesOption(R.drawable.delete_pin,"Delete Account")
+
+        return listOf(points,receiptHistory,paymentDetails,contactUs,aboutUs,logout,deleteAccount)
     }
 }

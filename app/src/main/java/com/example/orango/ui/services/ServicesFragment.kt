@@ -32,7 +32,8 @@ class ServicesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
-        binding.backImg.setOnClickListener {
+
+        binding.backArrow.setOnClickListener {
             findNavController().navigate(R.id.homeFragment)
         }
     }

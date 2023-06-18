@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/_8sdp"
     tools:context=".ui.setting.SettingFragment">
 
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/backArrow"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/servicesList"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,11 +32,11 @@
         android:text="@string/setting"
         android:textStyle="normal"
         android:textColor="@color/primaryColor"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintBottom_toBottomOf="@+id/backArrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        app:layout_constraintStart_toEndOf="@+id/backArrow"
+        app:layout_constraintTop_toTopOf="@+id/backArrow" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -49,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/backArrow"
         tools:listitem="@layout/item_list_services" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
