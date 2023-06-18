@@ -8,7 +8,7 @@
     tools:context=".ui.editProfile.EditProfileFragment">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/backArrow"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
@@ -28,11 +28,11 @@
         android:text="@string/profile"
         android:textColor="@color/primaryColor"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintBottom_toBottomOf="@+id/backArrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        app:layout_constraintStart_toEndOf="@+id/backArrow"
+        app:layout_constraintTop_toTopOf="@+id/backArrow" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileImage"

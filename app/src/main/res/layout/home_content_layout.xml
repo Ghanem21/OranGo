@@ -95,7 +95,7 @@
             app:ci_height="@dimen/_10sdp"
             app:ci_margin="@dimen/_5sdp"
             app:ci_width="@dimen/_10sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
             app:layout_constraintBottom_toTopOf="@+id/categoryText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
