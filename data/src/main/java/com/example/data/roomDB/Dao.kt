@@ -38,8 +38,8 @@ interface Dao {
     fun getSubBestSelling(): LiveData<List<ProductEntity>>
 
     //return all bestselling list
-    @Query("SELECT * FROM products ORDER BY sold_units DESC LIMIT 20")
-    fun getAllBestSelling(): List<ProductEntity>
+    @Query("SELECT * FROM products ORDER BY sold_units DESC")
+    fun getAllBestSelling(): LiveData<List<ProductEntity>>
 
 
 

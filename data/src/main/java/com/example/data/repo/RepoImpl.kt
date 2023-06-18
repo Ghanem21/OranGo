@@ -1,10 +1,10 @@
 package com.example.data.repo
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.data.remote.Api
 import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
-import com.example.data.roomDB.entities.ReceiptEntity
 import com.example.data.roomDB.entities.asDatabaseModel
 import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.example.domain.entity.json.auth.signUp.Error
@@ -16,6 +16,7 @@ class RepoImpl(private val database: OranGoDataBase) {
     var currentError: String? = null
     private var signUpError: Error? = null
 
+    val bestSellingProduct = database.orangoDao.getAllBestSelling()
     val bestSellingProductsTopFive = database.orangoDao.getSubBestSelling()
     val offerProductsTopFive = database.orangoDao.getSubOffers()
     val categoriesTopFive = database.orangoDao.getSubCategories()
@@ -33,22 +34,9 @@ class RepoImpl(private val database: OranGoDataBase) {
         }
     }
 
-    val getReceiptHistory: suspend (customerId: Int) -> List<ReceiptEntity> = { customerId ->
+    suspend fun refreshProducts() {
         withContext(Dispatchers.IO) {
-            Api.retrofitService.getCustomerReceipt(customerId).receipts.asDatabaseModel()
-        }
-    }
-
-    val getSimilarProducts: suspend (categoryId: Int) -> List<ProductEntity> =
-        { categoryId ->
-            withContext(Dispatchers.IO) {
-                database.orangoDao.getSimilarProducts(categoryId)
-            }
-        }
-
-    suspend fun refreshProducts(customerId: Int) {
-        withContext(Dispatchers.IO) {
-            val productsList = Api.retrofitService.getAllProducts(customerId = customerId)
+            val productsList = Api.retrofitService.getAllProducts(customerId = 1)
             database.orangoDao.addProduct(productsList.products.asDatabaseModel())
         }
     }
