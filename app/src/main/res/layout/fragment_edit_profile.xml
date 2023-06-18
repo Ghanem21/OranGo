@@ -34,15 +34,17 @@
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
-    <ImageView
-        android:id="@+id/signUpLogo"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileImage"
         android:layout_width="@dimen/_125sdp"
         android:layout_height="@dimen/_125sdp"
         android:src="@drawable/empty_profile_pic"
         app:layout_constraintBottom_toTopOf="@+id/usernameTextInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -52,13 +54,14 @@
         app:layout_constraintBottom_toTopOf="@+id/emailTextInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpLogo"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage"
         app:startIconDrawable="@drawable/baseline_person_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPersonName"
             android:hint="@string/username" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,6 +79,7 @@
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:hint="@string/email" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,6 +97,7 @@
             android:id="@+id/phoneEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             android:hint="@string/phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,12 +109,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneTextInputLayout"
+        app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/password" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,6 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/_26sdp"
+        android:paddingVertical="@dimen/_8sdp"
         android:text="@string/save_changes"
         android:textSize="@dimen/_16ssp"
         app:cornerRadius="@dimen/_16ssp"
@@ -133,11 +141,11 @@
         android:backgroundTint="@color/primaryColor"
         android:clickable="true"
         android:src="@drawable/camera"
-        app:layout_constraintBottom_toBottomOf="@+id/signUpLogo"
-        app:layout_constraintEnd_toEndOf="@+id/signUpLogo"
+        app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+        app:layout_constraintEnd_toEndOf="@+id/profileImage"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/signUpLogo"
-        app:layout_constraintTop_toTopOf="@+id/signUpLogo"
+        app:layout_constraintStart_toStartOf="@+id/profileImage"
+        app:layout_constraintTop_toTopOf="@+id/profileImage"
         app:layout_constraintVertical_bias="1.0"
         app:tint="@color/white" />
 

@@ -2,6 +2,7 @@ package com.example.data.remote
 
 import com.example.domain.entity.json.auth.logIn.LogInResponse
 import com.example.domain.entity.json.auth.signUp.SignUpResponse
+import com.example.domain.entity.json.auth.updateProfile.UpdateProfileResponse
 import com.example.domain.entity.json.category.AllCategory.CategoryResponse
 import com.example.domain.entity.json.category.productOfCategory.CategoryProductResponse
 import com.example.domain.entity.json.customerPoints.PointsResponse
@@ -12,6 +13,8 @@ import com.example.domain.entity.json.products.DeleteFromFavouriteResponse
 import com.example.domain.entity.json.products.FavouriteProductsResponse
 import com.example.domain.entity.json.products.InsertToFavouriteResponse
 import com.example.domain.entity.json.receipt.AllReceiptResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -52,6 +55,18 @@ interface ApiService {
         @Field("phone_number") phoneNumber : String,
         @Field("password") password : String
     ): SignUpResponse
+
+    @Multipart
+    @POST("updateProfile")
+    suspend fun updateProfile(
+        @Part("id") id: RequestBody,
+        @Part("user_name") username: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("phone_number") phoneNumber: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): UpdateProfileResponse
+
 
     @FormUrlEncoded
     @POST("login")
