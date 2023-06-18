@@ -114,6 +114,21 @@
         <action
             android:id="@+id/action_settingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_pointFragment2"
+            app:destination="@id/pointFragment2" />
+        <action
+            android:id="@+id/action_settingFragment_to_receiptHistoryFragment"
+            app:destination="@id/receiptHistoryFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_paymentDetailsFragment"
+            app:destination="@id/paymentDetailsFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_contactUsFragment"
+            app:destination="@id/contactUsFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -141,5 +156,50 @@
         android:name="com.example.orango.ui.suggestedMeals.SuggestedMealsFragment"
         android:label="fragment_suggested_meals"
         tools:layout="@layout/fragment_suggested_meals" />
+    <fragment
+        android:id="@+id/pointFragment2"
+        android:name="com.example.orango.ui.point.PointFragment"
+        android:label="fragment_point"
+        tools:layout="@layout/fragment_point" >
+        <action
+            android:id="@+id/action_pointFragment2_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receiptHistoryFragment"
+        android:name="com.example.orango.ui.receiptHistory.ReceiptHistoryFragment"
+        android:label="fragment_receipt_history"
+        tools:layout="@layout/fragment_receipt_history" >
+        <action
+            android:id="@+id/action_receiptHistoryFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentDetailsFragment"
+        android:name="com.example.orango.ui.paymentDetails.PaymentDetailsFragment"
+        android:label="fragment_payment_details"
+        tools:layout="@layout/fragment_payment_details" >
+        <action
+            android:id="@+id/action_paymentDetailsFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.example.orango.ui.contactUs.ContactUsFragment"
+        android:label="fragment_contact_us"
+        tools:layout="@layout/fragment_contact_us" >
+        <action
+            android:id="@+id/action_contactUsFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.orango.ui.aboutus.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
 
 </navigation>
