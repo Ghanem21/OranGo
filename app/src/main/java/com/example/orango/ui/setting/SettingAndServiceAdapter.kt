@@ -24,7 +24,7 @@ class SettingAndServiceAdapter(private val options : List<SettingAndServicesOpti
                     "Suggested Meals" -> binding.root.findNavController().navigate(R.id.suggestedMealsFragment)
                     "Notes" -> binding.root.findNavController().navigate(R.id.notesFragment)
                     "Favourites" -> binding.root.findNavController().navigate(R.id.favouritesFragment)
-                    "Points" -> binding.root.findNavController().navigate(R.id.pointFragment)
+                    "Points" -> binding.root.findNavController().navigate(R.id.pointFragment2)
                     "Receipts History" -> binding.root.findNavController().navigate(R.id.receiptHistoryFragment)
                     "Payment Details" -> binding.root.findNavController().navigate(R.id.paymentDetailsFragment)
                     "Contact Us" -> binding.root.findNavController().navigate(R.id.contactUsFragment)
