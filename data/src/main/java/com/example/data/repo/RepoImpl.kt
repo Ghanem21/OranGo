@@ -1,10 +1,10 @@
 package com.example.data.repo
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.data.remote.Api
 import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
+import com.example.data.roomDB.entities.ReceiptEntity
 import com.example.data.roomDB.entities.asDatabaseModel
 import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.example.domain.entity.json.auth.signUp.Error
@@ -34,10 +34,23 @@ class RepoImpl(private val database: OranGoDataBase) {
         }
     }
 
-    suspend fun refreshProducts() {
+    suspend fun refreshProducts(customerId: Int) {
         withContext(Dispatchers.IO) {
-            val productsList = Api.retrofitService.getAllProducts(customerId = 1)
+            val productsList = Api.retrofitService.getAllProducts(customerId = customerId)
             database.orangoDao.addProduct(productsList.products.asDatabaseModel())
+        }
+    }
+
+    val getSimilarProducts: suspend (categoryId: Int) -> List<ProductEntity> =
+        { categoryId ->
+            withContext(Dispatchers.IO) {
+                database.orangoDao.getSimilarProducts(categoryId)
+            }
+        }
+
+    val getReceiptHistory: suspend (customerId: Int) -> List<ReceiptEntity> = { customerId ->
+        withContext(Dispatchers.IO) {
+            Api.retrofitService.getCustomerReceipt(customerId).receipts.asDatabaseModel()
         }
     }
 

@@ -37,7 +37,11 @@
         android:id="@+id/recommendedFragment"
         android:name="com.example.orango.ui.recommended.RecommendedFragment"
         android:label="fragment_recommended"
-        tools:layout="@layout/fragment_recommended"/>
+        tools:layout="@layout/fragment_recommended">
+        <action
+            android:id="@+id/action_recommendedFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/cartFragment"
@@ -71,6 +75,9 @@
         <action
             android:id="@+id/action_bestSellingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_bestSellingFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoriesScreenFragment"
@@ -92,6 +99,12 @@
         <action
             android:id="@+id/action_searchFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_recommendedFragment"
+            app:destination="@id/recommendedFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_bestSellingFragment"
+            app:destination="@id/bestSellingFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
