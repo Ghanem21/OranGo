@@ -52,3 +52,4 @@ fun List<ProductJson>.asDatabaseModel(): List<ProductEntity> {
             sold_units= it.sold_units)
     }
 }
+
