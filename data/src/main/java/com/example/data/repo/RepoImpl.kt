@@ -31,6 +31,12 @@ class RepoImpl(private val database: OranGoDataBase) {
     val favouriteProducts = database.orangoDao.getFavouriteProducts()
     val recommendedProducts = database.orangoDao.getRecommendedProduct()
 
+    val getNumberOfPoints : suspend(customerId : Int) -> Int = {customerId->
+        withContext(Dispatchers.IO){
+            Api.retrofitService.getPoints(customerId).points
+        }
+    }
+
     val getFavouriteProduct: suspend (customerId: Int) -> List<ProductEntity> = { customerId ->
         withContext(Dispatchers.IO) {
             Api.retrofitService.getFavouriteProducts(customerId = customerId).products.asDatabaseModel()
@@ -92,6 +98,7 @@ class RepoImpl(private val database: OranGoDataBase) {
     suspend fun logIn(email: String, password: String): Boolean {
         return withContext(Dispatchers.IO) {
             val logInResponse = Api.retrofitService.logIn(email, password)
+            Log.d("TAGGG", "logIn: ${logInResponse}")
             logInResponse.customerData?.let { customerData ->
                 this@RepoImpl.customerData = customerData
             }
