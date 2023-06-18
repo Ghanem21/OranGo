@@ -4,14 +4,15 @@ import android.app.Application
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.data.repo.RepoImpl
 import com.example.data.roomDB.OranGoDataBase
 import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.google.gson.Gson
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class EditProfileViewModel(private val application: Application) : AndroidViewModel(application) {
     private val database = OranGoDataBase.getInstance(application.applicationContext)
@@ -65,8 +66,8 @@ class EditProfileViewModel(private val application: Application) : AndroidViewMo
         return true
     }
 
-    fun updateProfile(username: String, email: String, phoneNumber: String, password: String) {
-        viewModelScope.launch {
+    suspend fun updateProfile(username: String, email: String, phoneNumber: String, password: String) =
+        withContext(Dispatchers.Main) {
             try {
                 val imageUri = (sharedPreferences.getString("imageUri","") ?: "").toUri()
                 val imagePath = if (imageUri.path?.isNotEmpty() == true) getRealPathFromURI(imageUri) else ""
@@ -75,11 +76,14 @@ class EditProfileViewModel(private val application: Application) : AndroidViewMo
                 customerData.user = repo.user ?: customerData.user
                 editor.putString("customer_data", Gson().toJson(customerData))
                 editor.apply()
+                return@withContext true
             } catch (ex: Exception) {
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
+                return@withContext false
             }
         }
-    }
+
 
     private fun getRealPathFromURI(uri: Uri): String? {
         val projection = arrayOf(MediaStore.Images.Media.DATA)

@@ -7,11 +7,12 @@
     android:background="@drawable/yellow_background_corner"
     android:padding="@dimen/_16sdp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileIcon"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
         android:src="@drawable/profile"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
         app:layout_constraintBottom_toBottomOf="@+id/usernameText"
         app:layout_constraintEnd_toStartOf="@+id/usernameText"
         app:layout_constraintHorizontal_bias="0.5"
@@ -39,10 +40,11 @@
         android:layout_height="@dimen/_30sdp"
         android:src="@drawable/baseline_notifications_none_24"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/profileIcon"
         app:layout_constraintEnd_toStartOf="@+id/profileIcon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="40dp" />
+        app:layout_constraintTop_toTopOf="@+id/profileIcon" />
 
     <ImageView
         android:id="@+id/settingIcon"
