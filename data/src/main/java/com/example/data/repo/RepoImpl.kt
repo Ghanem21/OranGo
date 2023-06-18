@@ -1,7 +1,6 @@
 package com.example.data.repo
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.data.remote.Api
 import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
@@ -13,9 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RepoImpl(private val database: OranGoDataBase) {
-    private val favoritesLiveData =
-        MutableLiveData(database.orangoDao.getFavouriteProducts().value ?: listOf())
-    val favorites: LiveData<List<ProductEntity>> = favoritesLiveData
     var customerData: CustomerData? = null
     var currentError: String? = null
     private var signUpError: Error? = null
@@ -23,6 +19,13 @@ class RepoImpl(private val database: OranGoDataBase) {
     val bestSellingProductsTopFive = database.orangoDao.getSubBestSelling()
     val offerProductsTopFive = database.orangoDao.getSubOffers()
     val categoriesTopFive = database.orangoDao.getSubCategories()
+    val favouriteProducts = database.orangoDao.getFavouriteProducts()
+
+    val getFavouriteProduct: suspend (customerId: Int) ->  List<ProductEntity> = { customerId ->
+        withContext(Dispatchers.IO) {
+            Api.retrofitService.getFavouriteProducts(customerId = customerId).products.asDatabaseModel()
+        }
+    }
 
     val getProducts: suspend (id: Int) -> ProductEntity? = { id ->
         withContext(Dispatchers.IO) {
@@ -57,24 +60,15 @@ class RepoImpl(private val database: OranGoDataBase) {
         }
     }
 
-    suspend fun refreshFavourites(customerId: Int) {
-        withContext(Dispatchers.IO) {
-            val favouriteProductsResponse =
-                Api.retrofitService.getFavouriteProducts(customerId = customerId)
-            withContext(Dispatchers.Main) {
-                favoritesLiveData.value = favouriteProductsResponse.products.asDatabaseModel()
-            }
-        }
-    }
 
     val products: LiveData<List<ProductEntity>> = database.orangoDao.getProducts()
 
 
-    suspend fun updateFavorites(product: ProductEntity) {
+    suspend fun updateFavorites(customerId:Int,product: ProductEntity) {
         withContext(Dispatchers.IO) {
             database.orangoDao.setProductFavouriteState(product)
-            if (product.liked == 1) Api.retrofitService.insertToFavourite(1, product.id)
-            else Api.retrofitService.deleteFromFavourite(1, product.id)
+            if (product.liked == 1) Api.retrofitService.insertToFavourite(customerId, product.id)
+            else Api.retrofitService.deleteFromFavourite(customerId , product.id)
         }
 
     }
@@ -84,8 +78,6 @@ class RepoImpl(private val database: OranGoDataBase) {
             database.clearAllTables()
         }
     }
-
-    val favorite: LiveData<List<ProductEntity>> = database.orangoDao.getFavouriteProducts()
 
     suspend fun logIn(email: String, password: String): Boolean {
         return withContext(Dispatchers.IO) {
