@@ -42,7 +42,7 @@ class ProductRecyclerViewAdapter(
             binding.favouriteIcon.setImageResource(R.drawable.heart_icon)
             binding.productName.text = product.productName
             binding.productLocation.text = product.location
-            binding.priceBeforeDicount.text = (product.price - (product.price * (product.offerValue / 100f))).toString()
+            binding.priceBeforeDicount.text = binding.root.context.getString(R.string.product_price_before_discount , (product.price - (product.price * (product.offerValue / 100f))).toString())
             binding.priceAfterDicount.text =  product.price.toString() +" L.E"
             Glide.with(binding.root.context)
                 .load(product.image)

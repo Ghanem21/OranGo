@@ -1,23 +1,56 @@
 package com.example.orango.ui.favourites
 
 import android.app.Application
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.data.repo.RepoImpl
 import com.example.data.roomDB.OranGoDataBase
+import com.example.data.roomDB.entities.ProductEntity
+import com.example.domain.entity.json.auth.logIn.CustomerData
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class FavouriteViewModel(application: Application) : AndroidViewModel(application) {
-    private val database = OranGoDataBase.getInstance(application.applicationContext)
-    private val repo = RepoImpl(database)
+    private var repo : RepoImpl
 
-    val favourites = repo.favorites
+    private val favouritesLiveData = MutableLiveData<List<ProductEntity>>()
+    val favourites = favouritesLiveData
 
-    fun refreshFavourite(customerId : Int){
+    private var savedCustomerData :CustomerData? = null
+
+    private val sharedPreferences by lazy {
+        application.applicationContext.getSharedPreferences(
+            "my_shared_preferences",
+            Context.MODE_PRIVATE
+        )
+    }
+
+    init {
+        val database = OranGoDataBase.getInstance(application.applicationContext)
+        repo = RepoImpl(database)
         viewModelScope.launch {
             try {
-                repo.refreshFavourites(customerId)
+                val customerDataJson = sharedPreferences.getString("customer_data", null)
+                savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
+                favouritesLiveData.value = repo.favouriteProducts.value
             }catch (ex:Exception){
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                ex.printStackTrace()
+            }
+        }
+    }
+
+    fun refreshFavourite(){
+        viewModelScope.launch {
+            try {
+                favouritesLiveData.value = savedCustomerData?.user?.id?.let {
+                    repo.getFavouriteProduct(it)
+                }
+            }catch (ex:Exception){
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }

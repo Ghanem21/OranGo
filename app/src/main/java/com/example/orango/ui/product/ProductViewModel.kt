@@ -1,6 +1,7 @@
 package com.example.orango.ui.product
 
 import android.app.Application
+import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -9,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.repo.RepoImpl
 import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
+import com.example.domain.entity.json.auth.logIn.CustomerData
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,9 +23,27 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     private val repo: RepoImpl
 
+    private var savedCustomerData : CustomerData? = null
+
+    private val sharedPreferences by lazy {
+        application.applicationContext.getSharedPreferences(
+            "my_shared_preferences",
+            Context.MODE_PRIVATE
+        )
+    }
+
     init {
         val database = OranGoDataBase.getInstance(application.applicationContext)
         repo = RepoImpl(database)
+        viewModelScope.launch {
+            try {
+                val customerDataJson = sharedPreferences.getString("customer_data", null)
+                savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
+            }catch (ex:Exception){
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                ex.printStackTrace()
+            }
+        }
     }
 
     fun getProduct(productId: Int) {
@@ -61,7 +82,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                 )
                 productLiveData.value = product
                 try {
-                    repo.updateFavorites(product)
+                    savedCustomerData?.user?.id?.let { it1 -> repo.updateFavorites(it1,product) }
                 } catch (ex: Exception) {
                     Toast.makeText(getApplication(), ex.message, Toast.LENGTH_SHORT).show()
                     ex.printStackTrace()
