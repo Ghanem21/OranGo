@@ -95,6 +95,7 @@ interface Dao {
     @Query("SELECT * FROM receipts")
     fun getReceipts(): List<ReceiptEntity>
 
-
+    @Query("SELECT * FROM products ORDER BY RANDOM()")
+    fun getRecommendedProduct(): LiveData<List<ProductEntity>>
 
 }
