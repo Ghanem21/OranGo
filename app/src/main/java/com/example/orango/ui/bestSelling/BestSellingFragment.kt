@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.orango.R
 import com.example.orango.databinding.FragmentBestSellingBinding
 
@@ -20,9 +19,6 @@ class BestSellingFragment : Fragment() {
         BestSellingAdapter(mutableListOf())
     }
 
-    private val gridLayoutManager by lazy {
-        GridLayoutManager(requireContext(), 2)
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,8 +43,6 @@ class BestSellingFragment : Fragment() {
     }
 
     private fun populateBestSellingAdapter() {
-        binding.productList.layoutManager = gridLayoutManager
-
         val adapter = productRecyclerViewAdapter
         binding.productList.adapter = adapter
     }
