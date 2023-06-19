@@ -11,6 +11,7 @@ import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.example.domain.entity.json.auth.logIn.User
 import com.example.domain.entity.json.auth.signUp.Error
 import com.example.domain.entity.json.auth.updateProfile.toUser
+import com.example.domain.entity.json.feedback.AddFeedbackResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
@@ -30,6 +31,12 @@ class RepoImpl(private val database: OranGoDataBase) {
     val categoriesTopFive = database.orangoDao.getSubCategories()
     val favouriteProducts = database.orangoDao.getFavouriteProducts()
     val recommendedProducts = database.orangoDao.getRecommendedProduct()
+
+    val sendFeedback: suspend (customerId : Int,message : String) -> AddFeedbackResponse = { customerId, message ->
+        withContext(Dispatchers.IO){
+            Api.retrofitService.addFeedback(customerId,message)
+        }
+    }
 
     val getNumberOfPoints : suspend(customerId : Int) -> Int = {customerId->
         withContext(Dispatchers.IO){
