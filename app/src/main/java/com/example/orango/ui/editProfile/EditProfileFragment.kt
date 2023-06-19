@@ -102,9 +102,14 @@ class EditProfileFragment : Fragment() {
             }
 
             lifecycleScope.launch {
-                val flag = viewModel.updateProfile(username, email, phoneNumber,password)
-                if(flag)
-                    findNavController().navigate(R.id.action_editProfileFragment_to_homeFragment)
+                try {
+                    val flag = viewModel.updateProfile(username, email, phoneNumber, password)
+                    if (flag)
+                        findNavController().navigate(R.id.action_editProfileFragment_to_homeFragment)
+                }catch (ex:Exception){
+                    Toast.makeText(requireContext(),ex.message,Toast.LENGTH_SHORT).show()
+                    ex.printStackTrace()
+                }
             }
 
         }

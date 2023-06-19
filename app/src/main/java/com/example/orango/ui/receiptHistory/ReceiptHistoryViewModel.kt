@@ -2,6 +2,7 @@ package com.example.orango.ui.receiptHistory
 
 import android.app.Application
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,6 +34,7 @@ class ReceiptHistoryViewModel(application: Application) : AndroidViewModel(appli
                 val savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
                 receiptsLiveData.value = repo.getReceiptHistory(savedCustomerData.user.id)
             }catch (ex:Exception){
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }
