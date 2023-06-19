@@ -48,7 +48,7 @@ interface Dao {
     fun getSubOffers(): LiveData<List<ProductEntity>>
 
     //return all offers list
-    @Query("SELECT * FROM products WHERE offerValue != 0")
+    @Query("SELECT * FROM products ORDER BY offerValue")
     fun getAllOffers(): LiveData<List<ProductEntity>>
 
 

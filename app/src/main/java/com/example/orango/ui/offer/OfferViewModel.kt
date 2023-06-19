@@ -3,6 +3,7 @@ package com.example.orango.ui.offer
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repo.RepoImpl
@@ -32,6 +33,7 @@ class OfferViewModel(application: Application) : AndroidViewModel(application) {
                 Log.d("logIn", "onViewCreated: $savedCustomerData")
                 repo.refreshProducts(savedCustomerData.user.id)
             } catch (ex: Exception) {
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }
