@@ -12,6 +12,7 @@ import com.example.domain.entity.json.products.AllProductResponse
 import com.example.domain.entity.json.products.DeleteFromFavouriteResponse
 import com.example.domain.entity.json.products.FavouriteProductsResponse
 import com.example.domain.entity.json.products.InsertToFavouriteResponse
+import com.example.domain.entity.json.receipt.AddReceipt
 import com.example.domain.entity.json.receipt.AllReceiptResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -130,6 +131,11 @@ interface ApiService {
     @GET("points/{customerId}")
     suspend fun getPoints(@Path("customerId") customerId: Int): PointsResponse
 
-    
+    @FormUrlEncoded
+    @POST("receipts/add")
+    suspend fun addReceipt(
+        @Field("customer_id") customerId: Int,
+        @Field("data") data: Map<String,Int>
+    ): AddReceipt
 
 }

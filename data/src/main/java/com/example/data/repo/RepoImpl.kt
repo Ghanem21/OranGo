@@ -8,6 +8,7 @@ import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
 import com.example.data.roomDB.entities.asDatabaseModel
+import com.example.domain.entity.json.AIResponse
 import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.example.domain.entity.json.auth.logIn.User
 import com.example.domain.entity.json.auth.signUp.Error
@@ -15,7 +16,7 @@ import com.example.domain.entity.json.auth.updateProfile.toUser
 import com.example.domain.entity.json.feedback.AddFeedbackResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -79,16 +80,30 @@ class RepoImpl(private val database: OranGoDataBase) {
             }
         }
 
-    val getReceiptHistory: suspend (customerId: Int) -> List<ReceiptEntity> = { customerId ->
-        withContext(Dispatchers.IO) {
+    val detectProduct: suspend (imageFile : File) -> AIResponse = { imageFile ->
+        withContext(Dispatchers.IO){
+            Api.retrofitServiceForAI.detectProduct(
+                convertImageFileToMultimediaPart(imageFile)
+            )
+        }
+    }
+
+    val getProductByName: suspend (productName:String) -> ProductEntity? = {productName ->
+        withContext(Dispatchers.IO){
+            database.orangoDao.getProductByName(productName).getOrNull(0)
+        }
+    }
+
+    val getReceiptHistory : suspend (customerId:Int) -> List<ReceiptEntity> = {customerId ->
+        withContext(Dispatchers.IO){
             Api.retrofitService.getCustomerReceipt(customerId).receipts.asDatabaseModel()
         }
     }
 
-    suspend fun refreshCategories() {
+    suspend fun refreshProducts() {
         withContext(Dispatchers.IO) {
-            val categoriesList = Api.retrofitService.getCategory()
-            database.orangoDao.insertCategories(categoriesList.categories.asDatabaseModel())
+            val productsList = Api.retrofitService.getAllProducts(customerId = 1)
+            database.orangoDao.addProduct(productsList.products.asDatabaseModel())
         }
     }
 
@@ -209,5 +224,13 @@ fun String.toMediaTypeOrNull(): MediaType? {
     } catch (e: Exception) {
         e.printStackTrace()
         null
+    }
+
+    private fun convertImageFileToMultimediaPart(imageFile: File): MultipartBody.Part {
+        // Create a RequestBody object with the image file
+        val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+
+        // Create a MultipartBody.Part using the RequestBody
+        return MultipartBody.Part.createFormData("image", imageFile.name, requestBody)
     }
 }
