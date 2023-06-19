@@ -12,6 +12,7 @@ import com.example.data.roomDB.OranGoDataBase
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.domain.entity.json.auth.logIn.CustomerData
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -50,21 +51,17 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    suspend fun detectProduct(imageFile: File)  =
-        withContext(viewModelScope.coroutineContext) {
-            try {
-                val aiResponse = repo.detectProduct(imageFile)
-                Log.d("TAG", "detectProduct: ${aiResponse.items}")
-                aiResponse.items.forEach { productName ->
-                    getProductByName(productName)
-                }
-                quantities.addAll(aiResponse.quantities)
-
+    suspend fun detectProduct(imageFile: File) =
+        withContext(Dispatchers.IO) {
+            val aiResponse = repo.detectProduct(imageFile)
+            Log.d("TAG", "detectProduct: ${aiResponse.items}")
+            aiResponse.items.forEach { productName ->
+                getProductByName(productName)
+            }
+            quantities.addAll(aiResponse.quantities)
+            withContext(Dispatchers.Main) {
                 productsLiveData.value = products
                 quantitiesLiveData.value = quantities
-
-            } catch (ex: Exception) {
-                ex.printStackTrace()
             }
         }
 

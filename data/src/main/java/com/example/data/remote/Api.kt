@@ -16,6 +16,9 @@ private const val BASE_URL_ADMIN_PANEL =
 private const val BASE_URL_AI_MODEL =
     "https://8f5b-105-41-218-121.ngrok-free.app/"
 
+private const val BASE_URL_ARD =
+    "http://192.168.1.160"
+
 //moshi build which we will use to convert json to object kotlin
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -25,6 +28,12 @@ private val moshi = Moshi.Builder()
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL_ADMIN_PANEL)
+    .build()
+
+//retrofit build which use to get json response from the base url
+private val retrofitARD = Retrofit.Builder()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .baseUrl(BASE_URL_ARD)
     .build()
 
 // Create an OkHttpClient with a custom timeout
@@ -47,5 +56,9 @@ object Api {
 
     val retrofitServiceForAI: ApiAI by lazy {
         retrofitAIModel.create(ApiAI::class.java)
+    }
+
+    val retrofitArdour: ARDApi by lazy {
+        retrofitARD.create(ARDApi::class.java)
     }
 }
