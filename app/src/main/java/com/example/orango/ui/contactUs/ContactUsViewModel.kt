@@ -2,6 +2,7 @@ package com.example.orango.ui.contactUs
 
 import android.app.Application
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repo.RepoImpl
@@ -23,9 +24,14 @@ class ContactUsViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun sendFeedback(message : String){
         viewModelScope.launch {
-            val customerDataJson = sharedPreferences.getString("customer_data", null)
-            val savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
-            repo.sendFeedback(savedCustomerData.user.id,message)
+            try {
+                val customerDataJson = sharedPreferences.getString("customer_data", null)
+                val savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
+                repo.sendFeedback(savedCustomerData.user.id, message)
+            }catch (ex:Exception){
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                ex.printStackTrace()
+            }
         }
     }
 }
