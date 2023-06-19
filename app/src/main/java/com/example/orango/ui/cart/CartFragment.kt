@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.data.remote.Api
 import com.example.orango.R
 import com.example.orango.databinding.FragmentCartBinding
 import kotlinx.coroutines.Dispatchers
@@ -75,7 +76,8 @@ class CartFragment : Fragment() {
 
         viewModel.productsLive.observe(viewLifecycleOwner) { products ->
             try {
-                Toast.makeText(requireContext(),products.size.toString(),Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), products.size.toString(), Toast.LENGTH_SHORT)
+                    .show()
                 cartAdapter.updateList(
                     products.toMutableList(),
                     viewModel.quantitiesLive.value.orEmpty().toMutableList()
@@ -134,10 +136,21 @@ class CartFragment : Fragment() {
                         cameraExecutor,
                         object : ImageCapture.OnImageSavedCallback {
                             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                                lifecycleScope.launch {
+                                lifecycleScope.launch(Dispatchers.IO) {
                                     try {
+                                        Api.retrofitArdour.setColor("FFFFFF")
                                         viewModel.detectProduct(imageFile)
+                                        Api.retrofitArdour.setColor("00FF00")
                                     } catch (ex: Exception) {
+                                        Api.retrofitArdour.setColor("FF0000")
+                                        withContext(Dispatchers.Main) {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                ex.message,
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+
+                                        }
                                         ex.printStackTrace()
                                     }
                                 }
@@ -172,6 +185,9 @@ class CartFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        lifecycleScope.launch {
+            Api.retrofitArdour.setColor("FFFFFF")
+        }
         super.onDestroyView()
         cameraExecutor.shutdown()
     }
