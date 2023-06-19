@@ -68,13 +68,13 @@
         app:layout_constraintBottom_toTopOf="@+id/sendButton"
         app:layout_constraintEnd_toEndOf="@+id/textView43"
         app:layout_constraintStart_toStartOf="@+id/textView43"
-        app:layout_constraintTop_toBottomOf="@+id/textView43"
-        app:startIconDrawable="@drawable/pen_icon">
+        app:layout_constraintTop_toBottomOf="@+id/textView43">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/cardNumberEditText"
+            android:id="@+id/messageEditText"
             android:layout_width="match_parent"
-            android:layout_height="132dp"
+            android:layout_height="@dimen/_135sdp"
+            android:gravity="top"
             android:hint="@string/type_here" />
     </com.google.android.material.textfield.TextInputLayout>
 
