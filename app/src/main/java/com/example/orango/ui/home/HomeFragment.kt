@@ -130,7 +130,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.content.offerSeeAll.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_bestSellingFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_offerFragment)
         }
 
         binding.content.categorySeeAll.setOnClickListener {

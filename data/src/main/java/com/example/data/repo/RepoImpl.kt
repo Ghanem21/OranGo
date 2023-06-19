@@ -31,6 +31,7 @@ class RepoImpl(private val database: OranGoDataBase) {
     val categoriesTopFive = database.orangoDao.getSubCategories()
     val favouriteProducts = database.orangoDao.getFavouriteProducts()
     val recommendedProducts = database.orangoDao.getRecommendedProduct()
+    val offerProducts = database.orangoDao.getAllOffers()
 
     val sendFeedback: suspend (customerId : Int,message : String) -> AddFeedbackResponse = { customerId, message ->
         withContext(Dispatchers.IO){
