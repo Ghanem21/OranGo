@@ -9,7 +9,7 @@ import com.example.data.roomDB.entities.ProductEntity
 import com.example.orango.R
 import com.example.orango.databinding.ItemCartCardBinding
 
-class CartAdapter (val products : MutableList<ProductEntity>,val quantities: MutableList<Int>) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+class CartAdapter (val map: MutableMap<ProductEntity,Int>) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
     //private val totalPriceLiveData
     inner class ViewHolder(private val binding: ItemCartCardBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(product: ProductEntity,quantity: Int) {
@@ -39,20 +39,36 @@ class CartAdapter (val products : MutableList<ProductEntity>,val quantities: Mut
     }
 
     override fun onBindViewHolder(holder: CartAdapter.ViewHolder, position: Int) {
-        if(position < products.size && position < quantities.size) {
-            val product = products[position]
-            val quantity = quantities[position]
+        if(position < map.size ) {
+            val product = map.keys.toList()[position]
+            val quantity = map.values.toList()[position]
             holder.bind(product, quantity)
         }
     }
 
-    override fun getItemCount(): Int = products.size
+    override fun getItemCount(): Int = map.size
 
-    fun updateList(products: MutableList<ProductEntity>, quantities: MutableList<Int>){
-        this.products.clear()
-        this.quantities.clear()
-        this.products.addAll(products)
-        this.quantities.addAll(quantities)
+    fun updateList(map: Map<ProductEntity,Int>){
+        this.map.clear()
+        this.map.putAll(map)
         notifyDataSetChanged()
+    }
+
+    fun getMap() : Map<String,Int>{
+        val map = mutableMapOf<String,Int>()
+        this.map.forEach {product ->
+            map[product.key.id.toString()] = product.value
+        }
+        return map
+    }
+
+    fun getTotalPrice(): Float {
+        var totalPrice = 0.0f
+        this.map.forEach {
+            val product = it.key
+            val price = (product.price - (product.price * (product.offerValue / 100f)))
+            totalPrice += (price * it.value)
+        }
+        return totalPrice
     }
 }
