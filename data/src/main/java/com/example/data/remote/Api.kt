@@ -19,6 +19,9 @@ private const val BASE_URL_AI_MODEL =
 private const val BASE_URL_ARD =
     "http://192.168.43.160"
 
+private const val BASE_URL_ARD =
+    "http://192.168.1.160"
+
 //moshi build which we will use to convert json to object kotlin
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
