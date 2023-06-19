@@ -93,6 +93,9 @@
         <argument
             android:name="categoryId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_categoriesScreenFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -108,6 +111,9 @@
         <action
             android:id="@+id/action_searchFragment_to_bestSellingFragment"
             app:destination="@id/bestSellingFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_categoriesScreenFragment"
+            app:destination="@id/categoriesScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"

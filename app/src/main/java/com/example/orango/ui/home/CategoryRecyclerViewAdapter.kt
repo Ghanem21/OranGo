@@ -28,6 +28,8 @@ class CategoryRecyclerViewAdapter(private val categories : MutableList<CategoryE
         init {
             binding.root.setOnClickListener {
                 selectedCategoryLiveData.value = categoryId
+                val navController = binding.root.findNavController()
+                navController.navigate(R.id.categoriesScreenFragment, bundleOf("categoryId" to categoryId))
             }
         }
     }
