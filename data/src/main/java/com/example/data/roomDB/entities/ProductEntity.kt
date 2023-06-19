@@ -16,25 +16,8 @@ data class ProductEntity(
     val price: Int,
     val productName: String,
     val quantity: Int,
-    val sold_units: Int
+    val sold_units: Int?
 )
-
-fun List<ProductEntity>.asJsonModel(): List<ProductJson> {
-    return map {
-        ProductJson(
-        id = it.id,
-        categoryId= it.categoryId,
-        categoryName= it.categoryName,
-        image= it.image,
-        liked= it.liked,
-        location= it.location,
-        offerValue= it.offerValue,
-        price= it.price,
-        productName= it.productName,
-        quantity= it.quantity,
-        sold_units= it.sold_units)
-    }
-}
 
 fun List<ProductJson>.asDatabaseModel(): List<ProductEntity> {
     return map {

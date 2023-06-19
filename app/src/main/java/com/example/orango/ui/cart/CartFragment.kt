@@ -22,6 +22,7 @@ import com.example.data.remote.Api
 import com.example.orango.R
 import com.example.orango.databinding.FragmentCartBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -40,7 +41,7 @@ class CartFragment : Fragment() {
     private val viewModel: CartViewModel by viewModels()
 
     private val cartAdapter by lazy {
-        CartAdapter(mutableListOf(), mutableListOf())
+        CartAdapter(mutableMapOf())
     }
 
     override fun onCreateView(
@@ -58,6 +59,11 @@ class CartFragment : Fragment() {
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
 
+        binding.include55.checkout.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                Api.retrofitService.addReceipt(viewModel.savedCustomerData.user.id,cartAdapter.getMap())
+            }
+        }
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.CAMERA
@@ -71,21 +77,6 @@ class CartFragment : Fragment() {
         } else {
             lifecycleScope.launch {
                 startCamera()
-            }
-        }
-
-        viewModel.productsLive.observe(viewLifecycleOwner) { products ->
-            try {
-                Toast.makeText(requireContext(), products.size.toString(), Toast.LENGTH_SHORT)
-                    .show()
-                cartAdapter.updateList(
-                    products.toMutableList(),
-                    viewModel.quantitiesLive.value.orEmpty().toMutableList()
-                )
-                viewModel.products.clear()
-                viewModel.quantities.clear()
-            } catch (ex: Exception) {
-                ex.printStackTrace()
             }
         }
     }
@@ -136,21 +127,21 @@ class CartFragment : Fragment() {
                         cameraExecutor,
                         object : ImageCapture.OnImageSavedCallback {
                             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                                lifecycleScope.launch(Dispatchers.IO) {
+                                lifecycleScope.launch {
                                     try {
-                                        Api.retrofitArdour.setColor("FFFFFF")
-                                        viewModel.detectProduct(imageFile)
-                                        Api.retrofitArdour.setColor("00FF00")
+                                        //Api.retrofitArdour.setColor("FFFFFF")
+                                        val map = viewModel.detectProduct(imageFile)
+                                        //Api.retrofitArdour.setColor("00FF00")
+                                        cartAdapter.updateList(map.toMap())
+                                        binding.include.textView10.text = "Items: " + cartAdapter.itemCount
+                                        binding.include.textView10.text = "Total Price: " + cartAdapter.getTotalPrice() + " L.E"
+                                        delay(1000)
                                     } catch (ex: Exception) {
-                                        Api.retrofitArdour.setColor("FF0000")
-                                        withContext(Dispatchers.Main) {
-                                            Toast.makeText(
-                                                requireContext(),
-                                                ex.message,
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-
-                                        }
+                                        Toast.makeText(
+                                            requireContext(),
+                                            ex.message,
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         ex.printStackTrace()
                                     }
                                 }
