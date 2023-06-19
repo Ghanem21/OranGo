@@ -73,7 +73,11 @@ class ProductRecyclerViewAdapter(
             }
         }
         fun bind(product: ProductEntity) {
-            binding.favouriteIcon.setImageResource(R.drawable.heart_icon)
+            if(product.liked == 0)
+                binding.favouriteIcon.setImageResource(R.drawable.heart_icon)
+            else
+                binding.favouriteIcon.setImageResource(R.drawable.heart_icon)
+
             binding.productName.text = product.productName
             binding.productLocation.text = product.location
             binding.priceBeforeDicount.text = binding.root.context.getString(
