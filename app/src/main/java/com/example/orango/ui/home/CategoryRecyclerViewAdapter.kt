@@ -27,15 +27,12 @@ class CategoryRecyclerViewAdapter(private val categories : MutableList<CategoryE
                 .placeholder(R.drawable.loading_animation)
                 .error(R.drawable.broken_img)
                 .into(binding.categoryImg)
-
-            binding.root.setOnClickListener {
-                val navController = binding.root.findNavController()
-                navController.navigate(R.id.productFragment, bundleOf("categoryId" to category.id))
-            }
         }
         init {
             binding.root.setOnClickListener {
                 selectedCategoryLiveData.value = categoryId
+                val navController = binding.root.findNavController()
+                navController.navigate(R.id.categoriesScreenFragment, bundleOf("categoryId" to categoryId))
             }
         }
     }

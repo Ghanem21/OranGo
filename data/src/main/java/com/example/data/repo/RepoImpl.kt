@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.data.remote.Api
 import com.example.data.roomDB.OranGoDataBase
+import com.example.data.roomDB.entities.CategoryEntity
 import com.example.data.roomDB.entities.ProductEntity
 import com.example.data.roomDB.entities.ReceiptEntity
 import com.example.data.roomDB.entities.asDatabaseModel
@@ -32,10 +33,17 @@ class RepoImpl(private val database: OranGoDataBase) {
     val favouriteProducts = database.orangoDao.getFavouriteProducts()
     val recommendedProducts = database.orangoDao.getRecommendedProduct()
     val offerProducts = database.orangoDao.getAllOffers()
+    val categories = database.orangoDao.getAllCategories()
 
     val sendFeedback: suspend (customerId : Int,message : String) -> AddFeedbackResponse = { customerId, message ->
         withContext(Dispatchers.IO){
             Api.retrofitService.addFeedback(customerId,message)
+        }
+    }
+
+    val getCategoryById: suspend (categoryId: Int) -> CategoryEntity? = { categoryId ->
+        withContext(Dispatchers.IO){
+            database.orangoDao.getCategoryById(categoryId).getOrNull(0)
         }
     }
 
@@ -171,6 +179,19 @@ class RepoImpl(private val database: OranGoDataBase) {
             return@withContext updateProfileResponse.status
         }
     }
+
+    suspend fun getProductByCategoryId(categoryId: Int) =
+        withContext(Dispatchers.IO){
+            try {
+                Api.retrofitService.getProductOfCategory(categoryId).products.asDatabaseModel()
+            }catch (ex:Exception){
+                try {
+                    database.orangoDao.getProductsByCategoryId(categoryId)
+                }catch (ex:Exception){
+                    listOf()
+                }
+            }
+        }
 }
 
 fun String.toRequestBody(contentType: MediaType): RequestBody {

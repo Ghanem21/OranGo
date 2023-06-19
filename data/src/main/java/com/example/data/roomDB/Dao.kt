@@ -13,9 +13,6 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addProduct(products: List<ProductEntity>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCategories(categories: List<CategoryEntity>)
-
     //getAllProducts
     @Query("SELECT * FROM products")
     fun getProducts(): LiveData<List<ProductEntity>>
@@ -30,7 +27,11 @@ interface Dao {
 
     // get products list by category id in categories screen
     @Query("SELECT * FROM products WHERE categoryId = :categoryId")
-    fun getProductsByCategoryId(categoryId: Int): LiveData<List<ProductEntity>>
+    fun getProductsByCategoryId(categoryId: Int): List<ProductEntity>
+
+    @Query("SELECT * FROM categories WHERE id = :categoryId")
+    fun getCategoryById(categoryId: Int): List<CategoryEntity>
+
 
 
     //return bestselling list in home page
