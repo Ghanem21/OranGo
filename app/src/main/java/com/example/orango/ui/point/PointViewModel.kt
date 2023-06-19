@@ -2,6 +2,7 @@ package com.example.orango.ui.point
 
 import android.app.Application
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,9 +28,14 @@ class PointViewModel(application: Application) : AndroidViewModel(application) {
     }
     init {
         viewModelScope.launch {
-            val customerDataJson = sharedPreferences.getString("customer_data", null)
-            val savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
-            pointsLiveData.value = repo.getNumberOfPoints(savedCustomerData.user.id)
+            try {
+                val customerDataJson = sharedPreferences.getString("customer_data", null)
+                val savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
+                pointsLiveData.value = repo.getNumberOfPoints(savedCustomerData.user.id)
+            }catch (ex:Exception){
+                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                ex.printStackTrace()
+            }
         }
     }
 

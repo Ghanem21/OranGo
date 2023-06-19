@@ -2,6 +2,7 @@ package com.example.orango.ui.recommended
 
 import android.app.Application
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repo.RepoImpl
@@ -29,6 +30,7 @@ class RecommendedViewModel(application: Application) : AndroidViewModel(applicat
                 val savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
                 repo.refreshProducts(savedCustomerData.user.id)
             } catch (ex: Exception) {
+                Toast.makeText(getApplication(),ex.message, Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }
