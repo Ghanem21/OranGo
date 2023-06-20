@@ -61,7 +61,14 @@ class CartFragment : Fragment() {
 
         binding.include55.checkout.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                Api.retrofitService.addReceipt(viewModel.savedCustomerData.user.id,cartAdapter.getMap())
+                try {
+                    Api.retrofitService.addReceipt(
+                        viewModel.savedCustomerData.user.id,
+                        cartAdapter.getMapOfReceycle()
+                    )
+                }catch (ex:Exception){
+                    ex.printStackTrace()
+                }
             }
         }
         if (ActivityCompat.checkSelfPermission(
@@ -118,6 +125,7 @@ class CartFragment : Fragment() {
     private fun captureImageEveryThreeSeconds(imageCapture: ImageCapture) {
         lifecycleScope.launch {
             while (true) {
+                Api.retrofitArdour.setColor("FFFFFFFF")
                 val imageFile = createImageFile(outputDirectory)
                 val outputFileOptions = ImageCapture.OutputFileOptions.Builder(imageFile).build()
 
@@ -129,12 +137,11 @@ class CartFragment : Fragment() {
                             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                                 lifecycleScope.launch {
                                     try {
-                                        //Api.retrofitArdour.setColor("FFFFFF")
                                         val map = viewModel.detectProduct(imageFile)
-                                        //Api.retrofitArdour.setColor("00FF00")
+                                        Api.retrofitArdour.setColor("00FF00FF")
                                         cartAdapter.updateList(map.toMap())
-                                        binding.include.textView10.text = "Items: " + cartAdapter.itemCount
-                                        binding.include.textView10.text = "Total Price: " + cartAdapter.getTotalPrice() + " L.E"
+                                        binding.include.itemsNo.text = "Items: " + cartAdapter.itemCount
+                                        binding.include.totalPrice.text = "Total Price: " + cartAdapter.getTotalPrice() + " L.E"
                                         delay(1000)
                                     } catch (ex: Exception) {
                                         Toast.makeText(
@@ -151,6 +158,7 @@ class CartFragment : Fragment() {
                                 // Handle error
                             }
                         })
+                    delay(1000)
                 }
             }
         }
@@ -177,7 +185,7 @@ class CartFragment : Fragment() {
 
     override fun onDestroyView() {
         lifecycleScope.launch {
-            Api.retrofitArdour.setColor("FFFFFF")
+            Api.retrofitArdour.setColor("FFFFFFFF")
         }
         super.onDestroyView()
         cameraExecutor.shutdown()

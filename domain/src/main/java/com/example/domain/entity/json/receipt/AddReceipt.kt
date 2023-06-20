@@ -5,3 +5,7 @@ data class AddReceipt (
     val msg: String,
     val status: Boolean,
 )
+
+data class Error(
+    val customer_id: List<String>
+)
