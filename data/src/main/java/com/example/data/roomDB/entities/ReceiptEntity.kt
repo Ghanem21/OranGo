@@ -9,7 +9,7 @@ data class ReceiptEntity(
     @PrimaryKey val id: Int,
     val date: String,
     val receipt_number: Int,
-    val time: String,
+    val user_name: String,
     val total_price: Int
 )
 
@@ -19,7 +19,7 @@ fun List<ReceiptEntity>.asJsonModel(): List<Receipt> {
             id = it.id,
             date = it.date,
             receipt_number = it.receipt_number,
-            time = it.time,
+            user_name = it.user_name,
             total_price = it.total_price
         )
     }
@@ -31,7 +31,7 @@ fun List<Receipt>.asDatabaseModel(): List<ReceiptEntity> {
             id = it.id,
             date= it.date,
             receipt_number = it.receipt_number,
-            time = it.time,
+            user_name = it.user_name,
             total_price = it.total_price,
         )
     }

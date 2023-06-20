@@ -40,7 +40,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                 val customerDataJson = sharedPreferences.getString("customer_data", null)
                 savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
             }catch (ex:Exception){
-                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplication(),"Bad internet Connection",Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }
@@ -56,7 +56,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                     productLiveData.value = it
                 }
             } catch (ex: Exception) {
-                Toast.makeText(getApplication(), ex.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplication(), "Bad internet Connection", Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }
@@ -84,7 +84,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                 try {
                     savedCustomerData?.user?.id?.let { it1 -> repo.updateFavorites(it1,product) }
                 } catch (ex: Exception) {
-                    Toast.makeText(getApplication(), ex.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(getApplication(), "Bad internet Connection", Toast.LENGTH_SHORT).show()
                     ex.printStackTrace()
                 }
             }

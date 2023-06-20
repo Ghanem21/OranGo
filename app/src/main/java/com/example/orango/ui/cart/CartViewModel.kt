@@ -38,7 +38,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
                 savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
                 repo.refreshProducts(savedCustomerData.user.id)
             } catch (ex: Exception) {
-                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplication(),"Bad internet Connection",Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }
@@ -59,7 +59,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
                     return@withContext map
                 }
             } catch (ex: Exception) {
-                Toast.makeText(getApplication(), ex.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplication(), "Bad internet Connection", Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
                 return@async map
             }

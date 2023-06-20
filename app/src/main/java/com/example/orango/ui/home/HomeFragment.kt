@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
             binding.content.offerViewPager.adapter = offerViewPagerAdapter
             binding.content.circleIndicator3.setViewPager(binding.content.offerViewPager)
         } catch (ex: Exception) {
-            Toast.makeText(requireContext(),ex.message,Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"Bad internet Connection",Toast.LENGTH_SHORT).show()
             ex.printStackTrace()
         }
     }

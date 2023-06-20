@@ -73,7 +73,7 @@ class LogInViewModel(application: Application) : AndroidViewModel(application) {
                     logInSucceedLiveData.value = true
                 }
             } catch (ex: Exception) {
-                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_LONG).show()
+                Toast.makeText(getApplication(),"Bad internet Connection",Toast.LENGTH_LONG).show()
                 ex.printStackTrace()
             }
         }

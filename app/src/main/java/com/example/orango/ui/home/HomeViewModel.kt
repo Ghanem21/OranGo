@@ -43,7 +43,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                         Gson().fromJson(customerDataJson, CustomerData::class.java)
                     repo.refreshProducts(savedCustomerDataLiveData.value!!.user.id )
                 } catch (ex: Exception) {
-                    Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(getApplication(),"Bad internet Connection",Toast.LENGTH_SHORT).show()
                     ex.printStackTrace()
                 }
             }
@@ -52,7 +52,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 try {
                     repo.refreshCategories()
                 }catch (ex :Exception){
-                    Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(getApplication(),"Bad internet Connection",Toast.LENGTH_SHORT).show()
                     ex.printStackTrace()
                 }
             }

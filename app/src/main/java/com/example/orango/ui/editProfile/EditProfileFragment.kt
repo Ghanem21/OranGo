@@ -107,7 +107,7 @@ class EditProfileFragment : Fragment() {
                     if (flag)
                         findNavController().navigate(R.id.action_editProfileFragment_to_homeFragment)
                 }catch (ex:Exception){
-                    Toast.makeText(requireContext(),ex.message,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),"Bad internet Connection",Toast.LENGTH_SHORT).show()
                     ex.printStackTrace()
                 }
             }

@@ -146,7 +146,7 @@ class CartFragment : Fragment() {
                                     } catch (ex: Exception) {
                                         Toast.makeText(
                                             requireContext(),
-                                            ex.message,
+                                            "Bad internet Connection",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         ex.printStackTrace()

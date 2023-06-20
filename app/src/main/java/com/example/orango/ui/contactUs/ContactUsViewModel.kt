@@ -29,7 +29,7 @@ class ContactUsViewModel(application: Application) : AndroidViewModel(applicatio
                 val savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
                 repo.sendFeedback(savedCustomerData.user.id, message)
             }catch (ex:Exception){
-                Toast.makeText(getApplication(),ex.message,Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplication(),"Bad internet Connection",Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }

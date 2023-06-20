@@ -26,7 +26,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
             try {
                 repo.refreshCategories()
             } catch (ex: Exception) {
-                Toast.makeText(getApplication(), ex.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplication(), "Bad internet Connection", Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }
@@ -37,7 +37,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
             try {
                 productsLiveData.value = repo.getProductByCategoryId(categoryId)
             } catch (ex: Exception) {
-                Toast.makeText(getApplication(), ex.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplication(),"Bad internet Connection", Toast.LENGTH_SHORT).show()
                 ex.printStackTrace()
             }
         }
@@ -47,7 +47,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
         try {
             repo.getCategoryById(categoryId)
         } catch (ex: Exception) {
-            Toast.makeText(getApplication(), ex.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(getApplication(), "Bad internet Connection", Toast.LENGTH_SHORT).show()
             ex.printStackTrace()
             null
         }
