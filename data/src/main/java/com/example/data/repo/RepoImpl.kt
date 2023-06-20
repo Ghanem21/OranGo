@@ -16,6 +16,7 @@ import com.example.domain.entity.json.auth.updateProfile.toUser
 import com.example.domain.entity.json.feedback.AddFeedbackResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -35,6 +36,13 @@ class RepoImpl(private val database: OranGoDataBase) {
     val recommendedProducts = database.orangoDao.getRecommendedProduct()
     val offerProducts = database.orangoDao.getAllOffers()
     val categories = database.orangoDao.getAllCategories()
+
+    suspend fun refreshCategories() {
+        withContext(Dispatchers.IO) {
+            val categoriesList = Api.retrofitService.getCategory()
+            database.orangoDao.insertCategories(categoriesList.categories.asDatabaseModel())
+        }
+    }
 
     val sendFeedback: suspend (customerId : Int,message : String) -> AddFeedbackResponse = { customerId, message ->
         withContext(Dispatchers.IO){
@@ -218,19 +226,10 @@ fun File.asRequestBody(mediaType: MediaType?): RequestBody {
     return RequestBody.create(mediaType, this)
 }
 
-fun String.toMediaTypeOrNull(): MediaType? {
-    return try {
-        MediaType.parse(this)
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
-    }
+private fun convertImageFileToMultimediaPart(imageFile: File): MultipartBody.Part {
+    // Create a RequestBody object with the image file
+    val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
 
-    private fun convertImageFileToMultimediaPart(imageFile: File): MultipartBody.Part {
-        // Create a RequestBody object with the image file
-        val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
-
-        // Create a MultipartBody.Part using the RequestBody
-        return MultipartBody.Part.createFormData("image", imageFile.name, requestBody)
-    }
+    // Create a MultipartBody.Part using the RequestBody
+    return MultipartBody.Part.createFormData("image", imageFile.name, requestBody)
 }

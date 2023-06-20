@@ -17,7 +17,7 @@ private const val BASE_URL_AI_MODEL =
     "https://70c8-105-37-82-227.ngrok-free.app"
 
 private const val BASE_URL_ARD =
-    "http://192.168.1.160"
+    "http://192.168.43.160"
 
 //moshi build which we will use to convert json to object kotlin
 private val moshi = Moshi.Builder()
@@ -38,8 +38,9 @@ private val retrofitARD = Retrofit.Builder()
 
 // Create an OkHttpClient with a custom timeout
 private val okHttpClient = OkHttpClient.Builder()
-    .connectTimeout(6000, TimeUnit.SECONDS)
-    .readTimeout(6000, TimeUnit.SECONDS)
+    .connectTimeout(60000, TimeUnit.SECONDS)
+    .readTimeout(60000, TimeUnit.SECONDS)
+    .writeTimeout(60000,TimeUnit.SECONDS)
     .build()
 
 //retrofit build which use to get json response from the base url

@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_110sdp"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/_120sdp">
 
         <ImageView
             android:id="@+id/product_img_in_bestselling"

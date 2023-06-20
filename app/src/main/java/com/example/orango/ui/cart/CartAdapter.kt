@@ -54,7 +54,7 @@ class CartAdapter (val map: MutableMap<ProductEntity,Int>) : RecyclerView.Adapte
         notifyDataSetChanged()
     }
 
-    fun getMap() : Map<String,Int>{
+    fun getMapOfReceycle() : Map<String,Int>{
         val map = mutableMapOf<String,Int>()
         this.map.forEach {product ->
             map[product.key.id.toString()] = product.value
