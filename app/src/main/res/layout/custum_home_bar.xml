@@ -26,7 +26,7 @@
         android:paddingStart="@dimen/_16sdp"
         android:text="Username"
         android:textColor="@color/white"
-        android:textSize="@dimen/_24sdp"
+        android:textSize="@dimen/_21ssp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/searchIcon"
