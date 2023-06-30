@@ -16,11 +16,10 @@ class CartAdapter (val map: MutableMap<ProductEntity,Int>) : RecyclerView.Adapte
             binding.productNameText.text = product.productName
             binding.productPriceText.text ="L.E${product.price} per each"
             binding.quantityText.text = quantity.toString()
-            binding.totalPriceText.text = "L.E${product.price * quantity}"
+            binding.totalPriceText.text = "L.E${(product.price - (product.price * (product.offerValue / 100f))) * quantity}"
             Glide.with(binding.root)
                 .load(product.image)
                 .placeholder(R.drawable.tomato)
-                .centerCrop()
                 .apply(RequestOptions.overrideOf(1600,1600).timeout(6000))
                 .into(binding.productImg)
         }

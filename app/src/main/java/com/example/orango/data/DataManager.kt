@@ -14,21 +14,21 @@ import com.example.orango.util.PRODUCT_ID
 import com.example.orango.util.TITLE
 
 object DataManager {
-    private val onBoardingData = ArrayList<OnBoardingData>()
-    val onBoardingFragmentList = ArrayList<Fragment>()
+    private val onBoardingData = mutableListOf<OnBoardingData>()
+    val onBoardingFragmentList = mutableListOf<Fragment>()
 
     private val offerProducts = ArrayList<Product>()
     val offerFragmentList = ArrayList<Fragment>()
 
-    var services : List<SettingAndServicesOption>
-    var settings : List<SettingAndServicesOption>
+    var services = mutableListOf<SettingAndServicesOption>()
+    var settings = mutableListOf<SettingAndServicesOption>()
 
     init {
         initOnBoardingData()
         initOnBoardingFragmentList()
         initOfferFragment()
-        services = intiServiceList()
-        settings = intiSettingList()
+        services.addAll(intiServiceList())
+        settings.addAll(intiSettingList())
     }
 
     private fun initOnBoardingData() {
@@ -76,10 +76,10 @@ object DataManager {
 
     private fun intiServiceList(): List<SettingAndServicesOption> {
         val suggestedMeals = SettingAndServicesOption(R.drawable.meals,"Suggested Meals")
-        val notes = SettingAndServicesOption(R.drawable.note,"Notes")
+        //val notes = SettingAndServicesOption(R.drawable.note,"Notes")
         val favourites = SettingAndServicesOption(R.drawable.baseline_filled_heart_24,"Favourites")
 
-        return listOf(suggestedMeals,notes,favourites)
+        return listOf(suggestedMeals,favourites)
     }
 
     private fun intiSettingList(): List<SettingAndServicesOption> {

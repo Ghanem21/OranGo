@@ -58,7 +58,7 @@ class SignUpViewModel(application: Application) : AndroidViewModel(application) 
                 }
                 handleSuccess()
             } catch (ex: Exception) {
-                handleError(ex.message ?: "An error occurred")
+                handleError("Bad internet Connection")
                 ex.printStackTrace()
             }
         }

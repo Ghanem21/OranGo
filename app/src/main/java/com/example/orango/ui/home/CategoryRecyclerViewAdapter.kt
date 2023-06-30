@@ -2,10 +2,13 @@ package com.example.orango.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.data.roomDB.entities.CategoryEntity
 import com.example.orango.R
 import com.example.orango.databinding.CardCategoriesBinding
@@ -20,11 +23,11 @@ class CategoryRecyclerViewAdapter(private val categories : MutableList<CategoryE
             binding.categoryName.text = category.name
             Glide.with(binding.root.context)
                 .load(category.image)
-                .centerCrop()
-                .placeholder(R.drawable.fruit)
+                .apply(RequestOptions().override(1600, 1600).timeout(6000))
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.broken_img)
                 .into(binding.categoryImg)
         }
-
         init {
             binding.root.setOnClickListener {
                 selectedCategoryLiveData.value = categoryId
@@ -50,7 +53,7 @@ class CategoryRecyclerViewAdapter(private val categories : MutableList<CategoryE
         holder.bind(category)
     }
 
-    fun updateList(categories: MutableList<CategoryEntity>){
+    fun updateList(categories: List<CategoryEntity>){
         this.categories.clear()
         this.categories.addAll(categories)
         notifyDataSetChanged()

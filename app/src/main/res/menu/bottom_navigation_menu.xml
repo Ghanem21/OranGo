@@ -20,7 +20,7 @@
         android:title="@string/recommended"/>
 
     <item
-        android:id="@+id/cartFragment"
+        android:id="@+id/cameraFragment"
         android:enabled="true"
         android:icon="@drawable/cart"
         android:title="@string/cart"/>

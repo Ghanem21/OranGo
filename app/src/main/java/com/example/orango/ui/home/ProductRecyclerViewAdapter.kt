@@ -67,7 +67,7 @@ class ProductRecyclerViewAdapter(
                     val customerDataJson = sharedPreferences.getString("customer_data", null)
                     savedCustomerData = Gson().fromJson(customerDataJson, CustomerData::class.java)
                 }catch (ex:Exception){
-                    Toast.makeText(binding.root.context,ex.message,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(binding.root.context,"Bad internet Connection",Toast.LENGTH_SHORT).show()
                     ex.printStackTrace()
                 }
             }
@@ -137,7 +137,7 @@ class ProductRecyclerViewAdapter(
                             )
                         }
                     } catch (ex: Exception) {
-                        Toast.makeText(binding.root.context, ex.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(binding.root.context, "Bad internet Connection", Toast.LENGTH_SHORT).show()
                         ex.printStackTrace()
                     }
                 }

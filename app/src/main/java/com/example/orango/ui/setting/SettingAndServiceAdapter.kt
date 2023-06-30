@@ -22,7 +22,6 @@ class SettingAndServiceAdapter(private val options : List<SettingAndServicesOpti
             binding.root.setOnClickListener {
                 when (binding.title.text){
                     "Suggested Meals" -> binding.root.findNavController().navigate(R.id.suggestedMealsFragment)
-                    "Notes" -> binding.root.findNavController().navigate(R.id.notesFragment)
                     "Favourites" -> binding.root.findNavController().navigate(R.id.favouritesFragment)
                     "Points" -> binding.root.findNavController().navigate(R.id.pointFragment2)
                     "Receipts History" -> binding.root.findNavController().navigate(R.id.receiptHistoryFragment)
