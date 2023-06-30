@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.homeFragment,
                 R.id.servicesFragment,
                 R.id.recommendedFragment,
-                R.id.cartFragment
+                R.id.cameraFragment
             )
         )
         navView.setupWithNavController(navController)
