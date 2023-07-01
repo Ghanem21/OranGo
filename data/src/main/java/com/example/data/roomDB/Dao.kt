@@ -36,8 +36,7 @@ interface Dao {
     fun getCategoryById(categoryId: Int): List<CategoryEntity>
 
 
-    @Query("SELECT * FROM categories WHERE id = :categoryId")
-    fun getCategoryById(categoryId: Int): List<CategoryEntity>
+
 
 
 
