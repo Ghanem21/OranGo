@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         ViewPager(
             mutableListOf(),
             childFragmentManager,
-            viewLifecycleOwner.lifecycle
+            lifecycle
         )
     }
 
@@ -55,8 +55,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewPager()
         setupAdapters()
+        initViewPager()
         observeData()
 
 
@@ -87,8 +87,10 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.offersTopFive.observe(viewLifecycleOwner) { offers ->
-            offerViewPagerAdapter.updateList(initOfferFragments(offers))
-            setupAdapters()
+            if (offers.isNotEmpty()) {
+                offerViewPagerAdapter.updateList(initOfferFragments(offers))
+                binding.content.circleIndicator3.setViewPager(binding.content.offerViewPager)
+            }
         }
 
         viewModel.savedCustomerData.observe(viewLifecycleOwner) { userData ->
@@ -165,7 +167,8 @@ class HomeFragment : Fragment() {
     }
 
     override fun onPause() {
-        super.onPause()
         binding.content.offerViewPager.adapter = null
+        binding.content.offerViewPager.tag = null
+        super.onPause()
     }
 }

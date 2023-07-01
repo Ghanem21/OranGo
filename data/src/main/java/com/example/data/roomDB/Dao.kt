@@ -52,7 +52,7 @@ interface Dao {
 
 
     //return offers list in home page
-    @Query("SELECT * FROM products ORDER BY offerValue != 0 DESC LIMIT 3")
+    @Query("SELECT * FROM products ORDER BY offerValue != 0 DESC LIMIT 5")
     fun getSubOffers(): LiveData<List<ProductEntity>>
 
     //return all offers list
